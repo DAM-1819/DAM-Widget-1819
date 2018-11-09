@@ -1,9 +1,23 @@
 package andres_caballero;
 
+import java.awt.EventQueue;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		EventQueue.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+					ventanaPrincipal.inicializar();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+			}
+		});
 
 	}
 
