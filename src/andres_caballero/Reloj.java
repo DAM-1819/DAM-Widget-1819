@@ -13,29 +13,26 @@ public class Reloj extends JLabel implements Runnable {
 	Thread hilo;
 
 	public Reloj(int x, int y, int p, int p1) {
+		super();
 		setBounds(x, y, p, p1);
 		hilo = new Thread(this);
-		hilo.start();
+		//hilo.start();
 	}
 
 	public void actualizar() {
 		Date fechaHoraActual = new Date();
 		calendario.setTime(fechaHoraActual);
 
-		hora = String.valueOf(calendario.get(Calendar.HOUR_OF_DAY));
-		min = calendario.get(Calendar.MINUTE) > 9 ? "" + calendario.get(Calendar.MINUTE)
-				: "0" + calendario.get(Calendar.MINUTE);
-		seg = calendario.get(Calendar.SECOND) > 9 ? "" + calendario.get(Calendar.SECOND)
-				: "0" + calendario.get(Calendar.SECOND);
+		hora = 
 	}
 
 	@Override
 	public void run() {
-		Thread ct = Thread.currentThread();
-		while (ct == hilo) {
+		Thread hiloActual = Thread.currentThread();
+		while (hiloActual == hilo) {
 			actualizar();
 		}
-		setText(hora + ":" + min + ":" + seg);
+		this.setText(hora + ":" + min + ":" + seg);
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
