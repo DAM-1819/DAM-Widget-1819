@@ -8,7 +8,7 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+					VentanaPrincipal2 ventanaPrincipal = new VentanaPrincipal2();
 					ventanaPrincipal.inicializar();
 				} catch (Exception e) {
 					e.printStackTrace();
