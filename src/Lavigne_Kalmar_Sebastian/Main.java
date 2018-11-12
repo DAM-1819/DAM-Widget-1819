@@ -1,5 +1,7 @@
 package Lavigne_Kalmar_Sebastian;
 
+import java.awt.EventQueue;
+
 /**
 *@author Sebas Lavigne
 *
@@ -8,7 +10,15 @@ package Lavigne_Kalmar_Sebastian;
 public class Main {
 
 	public static void main(String[] args) {
-		//Comentario
+		EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				MainWindow mainWindow = new MainWindow();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});	
 	}
 }
 
