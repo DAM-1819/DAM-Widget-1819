@@ -47,27 +47,30 @@ public class DialogSelectorColorDimension extends JDialog {
 		rojoLetra = new JSlider(0, 255);
 		verdeLetra = new JSlider(0, 255);
 		azulLetra = new JSlider(0, 255);
+		rojoFondo = new JSlider(0, 255);
+		verdeFondo = new JSlider(0, 255);
+		azulFondo = new JSlider(0, 255);
 		color = new JPanel();
 		aceptar = new JButton("Aceptar");
 
 		settingsObjeto.gridx = 0;
+		settingsObjeto.gridy = 0;
+		colorLetra.add(rojoLetra, settingsObjeto);
+
+		settingsObjeto.gridx = 0;
+		settingsObjeto.gridy = 1;
+		colorLetra.add(verdeLetra, settingsObjeto);
+
+		settingsObjeto.gridx = 0;
 		settingsObjeto.gridy = 2;
-		this.add(rojoLetra, settingsObjeto);
-
-		settingsObjeto.gridx = 0;
-		settingsObjeto.gridy = 4;
-		this.add(verdeLetra, settingsObjeto);
-
-		settingsObjeto.gridx = 0;
-		settingsObjeto.gridy = 6;
-		this.add(azulLetra, settingsObjeto);
+		colorLetra.add(azulLetra, settingsObjeto);
 
 		settingsObjeto.gridx = 0;
 		settingsObjeto.gridy = 7;
 		settingsObjeto.ipadx = 100;
 		settingsObjeto.ipady = 30;
 		settingsObjeto.fill = GridBagConstraints.BOTH;
-		this.add(color, settingsObjeto);
+		colorLetra.add(color, settingsObjeto);
 
 		settingsObjeto.gridx = 0;
 		settingsObjeto.gridy = 8;
