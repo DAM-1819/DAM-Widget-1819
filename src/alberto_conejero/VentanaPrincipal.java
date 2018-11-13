@@ -12,46 +12,35 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-
 public class VentanaPrincipal {
 
-	
-	
 	JFrame ventana;
 	JButton muestraPanel;
 
-	
-	
-	
 	public VentanaPrincipal() {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 150, 150);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	public void inicializar(){
+
+	public void inicializar() {
 		ventana.setVisible(true);
-		inicializarComponentes();	
-		inicializarListeners();		
+		inicializarComponentes();
+		inicializarListeners();
 	}
-	public void inicializarListeners(){
-		muestraPanel.addActionListener(e->{
+
+	public void inicializarListeners() {
+		muestraPanel.addActionListener(e -> {
 			SavePreview panel = new SavePreview();
+			panel.setVisible(true);
 		});
 	}
-	
-	public void inicializarComponentes(){
+
+	public void inicializarComponentes() {
 		ventana.setLayout(new GridBagLayout());
 		muestraPanel = new JButton("Prueba");
 		ventana.add(muestraPanel);
-		
-		
-		
-		
-	}
-	
-	
-	
 
-	
-	
+	}
+
 }
