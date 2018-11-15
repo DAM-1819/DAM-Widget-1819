@@ -215,8 +215,4 @@ public class DialogSelectorColorDimension extends JDialog {
 			}
 		});
 	}
-	
-	public Color getColor() {
-		return rgb1;
-	}
 }
