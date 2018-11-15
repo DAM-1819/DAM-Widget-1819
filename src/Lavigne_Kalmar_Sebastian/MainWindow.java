@@ -15,7 +15,7 @@ public class MainWindow {
 		JFrame frame = new JFrame("Testing");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.add(new TestPane());
+		frame.add(new PumpSlider());
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
