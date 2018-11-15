@@ -31,7 +31,6 @@ public class VentanaPrincipal {
 	}
 
 	public void inicializarComponentes() {
-
 		ventana.setLayout(new GridLayout(1, 4));
 		ventana.setResizable(false);
 
@@ -102,9 +101,6 @@ public class VentanaPrincipal {
 
 	public void inicializarListeners() {
 		facebok.addMouseListener(new MouseListener() {
-
-			
-
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
