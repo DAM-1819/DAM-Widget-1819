@@ -21,9 +21,42 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
-*@author Sebas Lavigne
-*/
-
+ * Este panel contiene un valor que va disminuyendo debido a una "fuga". Si se quiere "inflar" el valor
+ * debe arrastrarse la manija de la bomba con el ratón de arriba a abajo.
+ * 
+ * Los valores que definen la bomba de aire se pueden ajustar: su valor máximo, la velocidad de escape,
+ * la cantidad que se escapa, la fuerza necesaria para inflar, la cantidad que se infla...
+ * 
+ * Se puede observar el valor que tiene la bomba en cualquier momento con el método {@link #getValue()},
+ * pero la forma de ligar este valor como control de otra parte del programa es mediante un {@link PropertyChangeListener}
+ * 
+ * Un ejemplo de uso de este componente:
+ * <pre>{@code
+ * public void inicializarBomba(){
+		PumpSlider pump = new PumpSlider();
+		
+		//El cambio de propiedades es opcional
+		pump.setMaxValue(310);
+		pump.setInitValue(42);
+		pump.setLeakRate(100);
+		pump.setLeakAmount(3);
+		pump.setPumpForce(5);
+		pump.setPumpAmount(10);
+		
+		//Se debe inicializar la bomba
+		pump.initialize();
+		
+		//Y para ligarla con otra parte de nuestro programa se añade un Listener
+		pump.addPropertyChangeListener(new PropertyChangeListener() {
+			
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				//Acción que ocurre cada vez que cambia el valor de la bomba
+			}
+		});
+ * }</pre>
+ * @author Sebas Lavigne
+ */
 public class PumpSlider extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
