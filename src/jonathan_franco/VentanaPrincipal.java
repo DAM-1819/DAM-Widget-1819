@@ -18,7 +18,7 @@ public class VentanaPrincipal {
 
 	public VentanaPrincipal() {
 		ventana = new JFrame();
-		ventana.setBounds(100, 50, 600, 350);
+		ventana.setBounds(100, 50, 900, 350);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
@@ -32,6 +32,7 @@ public class VentanaPrincipal {
 
 		// Creamos el panel y lo añado a la ventana
 		panelFuente = new JPanel();
+		panelFuente.setLayout(new GridLayout(1, 1));
 		texto = new JLabel("Texto de ejemplo");	
 		texto.setHorizontalAlignment(JLabel.CENTER);
 		panelFuente.add(texto);

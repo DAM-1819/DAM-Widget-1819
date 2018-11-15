@@ -38,7 +38,7 @@ public class DialogFuente extends JDialog implements ActionListener {
 	public DialogFuente(JComponent componente, Font fuenteInicial) {
 		super();
 		setModal(true); // PARA HACERLO MODAL
-		setBounds((int) componente.getLocationOnScreen().getX(), (int) componente.getLocationOnScreen().getY(), 450, 700);
+		setBounds((int) componente.getLocationOnScreen().getX(), (int) componente.getLocationOnScreen().getY(), 500, 800);
 		this.fuente = fuenteInicial;
 		fuentes = environment.getAvailableFontFamilyNames();
 		anadirElementos();
