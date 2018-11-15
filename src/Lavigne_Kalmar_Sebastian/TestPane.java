@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 public class TestPane extends JPanel {
 
     private BufferedImage img;
-    private Point imgPoint = new Point(0, 0);
+    private Point imgPoint;
 
     public TestPane() {
         try {
@@ -30,6 +30,7 @@ public class TestPane extends JPanel {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        imgPoint = new Point(100-img.getWidth()/2, 0);
 
         MouseAdapter ma = new MouseAdapter() {
 
@@ -55,8 +56,9 @@ public class TestPane extends JPanel {
             public void mouseDragged(MouseEvent e) {
                 if (offset != null) {
                     Point mp = e.getPoint();
-                    imgPoint.x = mp.x - offset.x;
+//                    imgPoint.x = mp.x - offset.x;
                     imgPoint.y = mp.y - offset.y;
+                    keepWithin();
                     repaint();
                 }
             }
@@ -64,6 +66,16 @@ public class TestPane extends JPanel {
         };
         addMouseListener(ma);
         addMouseMotionListener(ma);
+    }
+    
+    private void keepWithin() {
+    	Rectangle bounds = getImageBounds();
+    	if (imgPoint.y < 0) {
+			imgPoint.y = 0;
+		}
+    	if (imgPoint.y > bounds.getHeight()) {
+    		imgPoint.y = (int) bounds.getHeight();
+    	}
     }
 
     protected Rectangle getImageBounds() {
