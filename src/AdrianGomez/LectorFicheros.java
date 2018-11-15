@@ -1,5 +1,6 @@
 package AdrianGomez;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.BufferedReader;
@@ -19,7 +20,8 @@ public class LectorFicheros extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	String user=System.getProperty("user.name");
+	String ruta="C:\\Users\\"+user+"\\Desktop\\";
 	JLabel eti;
 	JTextField tf;
 	JTextArea ta;
@@ -28,13 +30,18 @@ public class LectorFicheros extends JPanel {
 	public LectorFicheros() {
 		super();
 		this.setLayout(new GridBagLayout());
-		this.setBounds(0, 0, 250, 400);
+		this.setBounds(0, 0, 300, 250);
 		tf = new JTextField();
 		ta = new JTextArea();
 		eti = new JLabel("Introduce la ruta del fichero a leer");
 		aceptar = new JButton("ACEPTAR");
+		aceptar.setBackground(Color.BLACK);
+		aceptar.setForeground(Color.WHITE);
 		this.setVisible(true);
 		añadirComponentes();
+		ta.setForeground(Color.BLUE);
+		tf.setForeground(Color.RED);
+		tf.setText(ruta);
 		inicializarListeners();
 	}
 
@@ -74,7 +81,7 @@ public class LectorFicheros extends JPanel {
 			if(fich.isFile()) {
 				FileReader reader=new FileReader(fich);
 				BufferedReader br=new BufferedReader(reader);
-				
+				this.tf.setForeground(Color.GREEN);
 				String linea;
 				while((linea=br.readLine())!=null) {
 					aescribir=aescribir+linea;
@@ -82,6 +89,7 @@ public class LectorFicheros extends JPanel {
 				br.close();
 				
 			}else {
+				this.tf.setForeground(Color.RED);
 				JOptionPane.showMessageDialog(this, "La ruta introducida no es a un archivo");
 			}
 		}catch (IOException e) {
@@ -93,6 +101,7 @@ public class LectorFicheros extends JPanel {
 		aceptar.addActionListener((e) ->{
 			ta.setText(leerFichero(tf.getText()));
 			ta.setLineWrap(true);
+			
 		});
 	}
 }

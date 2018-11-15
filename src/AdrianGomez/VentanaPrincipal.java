@@ -9,7 +9,7 @@ public class VentanaPrincipal {
 	LectorFicheros lf;
 	public VentanaPrincipal(String title) {
 		ventana=new JFrame(title);
-		ventana.setBounds(0, 0, 200, 300);
+		ventana.setBounds(0, 0, 300, 250);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	public void inicializar() {
