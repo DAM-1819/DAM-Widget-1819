@@ -18,7 +18,9 @@ import javax.swing.event.ChangeListener;
 public class DialogSelectorColorDimension extends JDialog {
 
 	private static final long SerialVersionUID = 1L;
-	//private JFrame frame;
+	private JFrame frame;
+	private JTextField titulo;
+	private JTextField texto;
 	private JPanel dimensionVentana;
 	private JPanel seleccionarColor;
 	private JPanel seleccionarColorFondo;
@@ -39,10 +41,13 @@ public class DialogSelectorColorDimension extends JDialog {
 	private JSlider azulLetra;
 	private JPanel colorLetra;
 	private JButton aceptar;
-	private Color rgb;
+	private Color rgb1;
+	private Color rgb2;
 
-	public DialogSelectorColorDimension() {
-		//this.frame = frame;
+	public DialogSelectorColorDimension(JFrame frame, JTextField titulo,JTextField texto) {
+		this.frame = frame;
+		this.titulo = titulo;
+		this.texto = texto;
 		setModal(true);
 		setBounds(0, 0, 500, 500);
 		anadirElementos();
@@ -147,8 +152,8 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
-				colorFondo.setBackground(rgb);
+				rgb1 = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
+				colorFondo.setBackground(rgb1);
 			}
 		});
 
@@ -156,8 +161,8 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
-				colorFondo.setBackground(rgb);
+				rgb1 = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
+				colorFondo.setBackground(rgb1);
 			}
 		});
 
@@ -165,8 +170,8 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
-				colorFondo.setBackground(rgb);
+				rgb1 = new Color(rojoFondo.getValue(), verdeFondo.getValue(), azulFondo.getValue());
+				colorFondo.setBackground(rgb1);
 			}
 		});
 		
@@ -174,8 +179,8 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
-				colorLetra.setBackground(rgb);
+				rgb2 = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
+				colorLetra.setBackground(rgb2);
 			}
 		});
 		
@@ -183,8 +188,8 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
-				colorLetra.setBackground(rgb);
+				rgb2 = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
+				colorLetra.setBackground(rgb2);
 			}
 		});
 		
@@ -192,21 +197,26 @@ public class DialogSelectorColorDimension extends JDialog {
 
 			@Override
 			public void stateChanged(ChangeEvent e) {
-				rgb = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
-				colorLetra.setBackground(rgb);
+				rgb2 = new Color(rojoLetra.getValue(), verdeLetra.getValue(), azulLetra.getValue());
+				colorLetra.setBackground(rgb2);
 			}
 		});
 
 		aceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//frame.setBounds(100, 100, Integer.parseInt(numeroAncho.getText()), Integer.parseInt(numeroAlto.getText()));
-				//frame.setBackground(rgb);
+				frame.setBounds(100, 100, Integer.parseInt(numeroAncho.getText()), Integer.parseInt(numeroAlto.getText()));
+				frame.getContentPane().setBackground(rgb1);
+				titulo.setBackground(rgb1);
+				texto.setBackground(rgb1);
+			    titulo.setForeground(rgb2);
+			    texto.setForeground(rgb2);
+			    dispose();
 			}
 		});
 	}
 	
 	public Color getColor() {
-		return rgb;
+		return rgb1;
 	}
 }

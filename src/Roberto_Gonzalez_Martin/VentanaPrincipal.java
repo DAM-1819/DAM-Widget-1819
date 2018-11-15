@@ -55,7 +55,7 @@ public class VentanaPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DialogSelectorColorDimension dialogo = new DialogSelectorColorDimension();
+				DialogSelectorColorDimension dialogo = new DialogSelectorColorDimension(frame,titulo,texto);
 			}
 		});
 	}
