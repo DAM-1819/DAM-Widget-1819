@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -35,23 +37,30 @@ public class PumpSlider extends JPanel {
 	public static final int BAR_HEIGHT = 60;
 	public static final int BAR_X_OFFSET = 58;
 	public static final int BAR_Y_OFFSET = 75;
-	public static final int NUMBER_X_OFFSET = 105;
+	public static final int NUMBER_X_OFFSET = 100;
 	public static final int NUMBER_Y_OFFSET = 50;
 	
 	public static final int DEFAULT_LEAK_RATE = 200;
 	public static final int DEFAULT_LEAK_AMOUNT = 1;
 	public static final int DEFAULT_MAX_VALUE = 100;
 	public static final int DEFAULT_PUMP_FORCE = 2;
+	public static final int DEFAULT_PUMP_AMOUNT = 1;
 	public static final int INIT_VALUE = 50;
 	
 	private BufferedImage handle;
 	private BufferedImage body;
 	private Point imgPoint;
 	
+	/* La barra que representa el valor del componente */
 	private Rectangle valueBar;
 	
+	/* El valor que tiene este componente. */
 	private int value;
+	/* El valor maximo que puede tener este componente */
 	private int maxValue;
+	
+	// https://www.baeldung.com/java-observer-pattern
+	private PropertyChangeSupport support;
 	
 	/* Timer que controla la "perdida de presion" */
 	private Timer leakTimer;
@@ -59,9 +68,10 @@ public class PumpSlider extends JPanel {
 	private int leakRate;
 	/* La cantidad que se pierde cada vez que salta el Timer */
 	private int leakAmount;
-	
-	/* La "fuerza" que hace falta para incrementar el valor */
+	/* La "fuerza" que hace falta para incrementar el valor
+	 * Se traduce en la velocidad a la que hay que mover el raton */
 	private int pumpForce;
+	private int pumpAmount;
 
 	public PumpSlider() {
 		value = INIT_VALUE;
@@ -69,8 +79,10 @@ public class PumpSlider extends JPanel {
 		leakRate = DEFAULT_LEAK_RATE;
 		leakAmount = DEFAULT_LEAK_AMOUNT;
 		pumpForce = DEFAULT_PUMP_FORCE;
+		pumpAmount = DEFAULT_PUMP_AMOUNT;
 		initPumpSlider();
 		leakTimer.start();
+		
 	}
 	
 	private void initPumpSlider() {
@@ -86,11 +98,13 @@ public class PumpSlider extends JPanel {
 		valueBar = new Rectangle();
 		resizeValueBar();
 		
+		support = new PropertyChangeSupport(this);
+		
 		ActionListener leakListener = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				value -= leakAmount;
+				setValue(value - leakAmount);
 				keepValueWithinLimits();
 				resizeValueBar();
 				repaint();
@@ -163,12 +177,12 @@ public class PumpSlider extends JPanel {
 	 * Mantiene el valor siempre entre los valores 0 y maximo
 	 */
 	private void keepValueWithinLimits() {
-		value = value < 0 ? 0 : value;
-		value = value > maxValue ? maxValue : value;
+		setValue(value < 0 ? 0 : value);
+		setValue(value > maxValue ? maxValue : value);
 	}
 	
 	private void pumpValue() {
-		value += 1;
+		setValue(value + pumpAmount);
 		keepValueWithinLimits();
 	}
 	
@@ -195,6 +209,10 @@ public class PumpSlider extends JPanel {
 		return new Dimension(PANEL_WIDTH, PANEL_HEIGHT);
 	}
 	
+	/**
+	 * Pinta en el JPanel las dos imagenes que componen la bomba,
+	 * una barra de cantidad y el valor del componente
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -210,6 +228,34 @@ public class PumpSlider extends JPanel {
 			g2d.dispose();
 		}
 	}
+
+	/**
+	 * Establece un listener para el valor de este componente
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener pcl) {
+		support.addPropertyChangeListener(pcl);
+	}
+
+	/**
+	 * Desvincula un listener para el valor de este componente
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener pcl) {
+		support.removePropertyChangeListener(pcl);
+	}
 	
+	/**
+	 * Lanza un evento PropertyChangeEvent y actualiza el valor del componente
+	 * @param value el nuevo valor que tendra el componente
+	 */
+	private void setValue(int value) {
+		support.firePropertyChange("value", this.value, value);
+		this.value = value;
+	}
 	
+	/**
+	 * @return el valor de este componente
+	 */
+	public int getValue() {
+		return value;
+	}
 }
