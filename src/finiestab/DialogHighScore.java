@@ -1,7 +1,6 @@
 package finiestab;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.BufferedReader;
@@ -31,7 +30,7 @@ public class DialogHighScore extends JDialog {
 	JPanel der=new JPanel();
 	JPanel contenido=new JPanel();
 	ImageIcon icon;
-//	Imagen img;
+
 	
 	public DialogHighScore(int puntuacion, JFrame ventana, String nombre) {
 	super();
@@ -78,9 +77,14 @@ public class DialogHighScore extends JDialog {
 
 		this.add(titulo,settTitulo);
 		
+		ImageIcon panes=new ImageIcon(("recursos_iniesta/Panes2.PNG"));
+		izq.add(new JLabel(panes));
+		der.add(new JLabel(panes));
 		izq.setBackground(Color.BLACK);
 		der.setBackground(Color.BLACK);
+		
 		contenido.setLayout(new GridBagLayout());
+		contenido.setBackground(Color.BLACK);
 		GridBagConstraints settPanes=new GridBagConstraints();	
 		settPanes.gridy=1;
 		settPanes.weightx=2;

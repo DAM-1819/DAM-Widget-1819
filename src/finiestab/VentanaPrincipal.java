@@ -46,8 +46,7 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Inicialización del DialogHighScore
-				high=new DialogHighScore(1,ventana,"JONY");	
-		
+				high=new DialogHighScore(puntuacion,ventana,nombre);		
 			}
 		});;
 	}
