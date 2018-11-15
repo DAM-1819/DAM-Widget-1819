@@ -2,6 +2,7 @@ package RamPrincipal;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -21,13 +23,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class WidgetNoticias extends JPanel implements Runnable {
+	int iF;
 	JTextArea noticias;
 	static ArrayList<String> articulos = new ArrayList<>();
 	ArrayList<String> localizaciones = new ArrayList<>();
+	ArrayList<String> enlaces= new ArrayList<>();
 
 	public WidgetNoticias() {
 		inicializarComponentes();
 		inicializarListeners();
+	
 
 	}
 
@@ -41,8 +46,8 @@ public class WidgetNoticias extends JPanel implements Runnable {
 		noticias.setEditable(false);
 		noticias.setLineWrap(true);
 		noticias.setBackground(Color.GRAY);
-		noticias.setBorder(BorderFactory.createBevelBorder(1, Color.BLUE, Color.GRAY));
-		Font fuente = new Font("Dialog", Font.BOLD, 16);
+		this.setBorder(BorderFactory.createBevelBorder(1, Color.BLUE, Color.GRAY));
+		Font fuente = new Font("Tahoma", Font.PLAIN, 20);
 		noticias.setForeground(Color.WHITE);
 		noticias.setFont(fuente);
 		this.add(noticias, gb);
@@ -57,8 +62,10 @@ public class WidgetNoticias extends JPanel implements Runnable {
 		String url2 = "https://elpais.com/elpais/ciencia.html";
 		String url3 = "https://elpais.com/tecnologia";
 		String url4 = "https://elpais.com/politica/";
+		
 		articulos = obtenerArticulos(url);
 		localizaciones = obtenerLocalizaciones(url);
+		enlaces= obtenerEnlaces(url);
 		System.out.println("entra");
 		Thread t = new Thread(this);
 		t.start();
@@ -66,6 +73,43 @@ public class WidgetNoticias extends JPanel implements Runnable {
 	}
 
 
+	//No funciona
+	private ArrayList<String> obtenerEnlaces(String url) {
+		ArrayList<String> enlaces = new ArrayList<>();
+		Document doc = getHtmlDocument(url);
+		// Compruebo si me da un 200 al hacer la petición
+		if (getStatusConnectionCode(url) == 200) {
+
+			// Obtengo el HTML de la web en un objeto Document
+			Document document = getHtmlDocument(url);
+
+			// Busco todas las entradas que estan dentro de:
+
+			Elements entradas2 = document.select("div.articulo-datos").after("p.articulo-entradilla");
+			System.out
+					.println("Número de enlaces en la página inicial de El Mundo : " + entradas2.size() + "\n");
+			// Paseo cada una de las entradas
+			for (Element elem : entradas2) {
+				
+				String localizacion  = elem.attr("abs:href");
+				enlaces.add(localizacion);
+				for (int i = 0; i < enlaces.size(); i++) {
+					System.out.println(enlaces.get(i));
+				}
+
+				// Con el método "text()" obtengo el contenido que hay dentro de las etiquetas
+				// HTML
+				// Con el método "toString()" obtengo todo el HTML con etiquetas incluidas
+			}
+
+			System.out.println(enlaces.size());
+
+			return enlaces;
+
+		} else
+			System.out.println("El Status Code no es OK es: " + getStatusConnectionCode(url));
+		return enlaces;
+	}
 
 	private static ArrayList<String> obtenerLocalizaciones(String url) {
 		ArrayList<String> localizaciones = new ArrayList<>();
@@ -161,23 +205,26 @@ public class WidgetNoticias extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("entro");
-		for (int i = 0; i < articulos.size(); i++) {
-			if (i < localizaciones.size()) {
-				String not = localizaciones.get(i) + " - " + articulos.get(i) + ".";
-				noticias.setText(not);
-				System.out.println("entro");
-			} else {
+		while(true) {
+			for ( iF = 0; iF < articulos.size(); iF++) {
+				if (iF < localizaciones.size()) {
+					String not = localizaciones.get(iF) + " - " + articulos.get(iF) + ".";
+					noticias.setText(not);
+					System.out.println("entro");
+				} else {
 
-				String not = articulos.get(i) + ".";
-				noticias.setText(not);
+					String not = articulos.get(iF) + ".";
+					noticias.setText(not);
+				}
+				try {
+					Thread.sleep(6000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			try {
-				Thread.sleep(6000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+
 		}
-
+		
 	}
 
 	public void inicializarListeners() {
