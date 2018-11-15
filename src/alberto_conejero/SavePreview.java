@@ -3,11 +3,15 @@ package alberto_conejero;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,8 +19,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 
@@ -34,36 +40,76 @@ public class SavePreview extends JDialog {
 	JTextArea previewTexto;
 	JLabel imagen;
 	String textoArchivo;
-	Component panelMuestra;
-	ImageIcon image;
+	JPanel panelMuestra;
+	JScrollPane scroll;
+	BufferedImage img;
+	Component[] componentes;
 
-	public SavePreview(Component c) {
+	/**
+	 * Constructor en el que instancio los tamaños y llamo al metodo inicializar
+	 * 
+	 * @param c : el constructor recibe como parametro un panel en el cual he
+	 *          probado un texto
+	 */
+	public SavePreview(JPanel c) {
 		super();
 		this.setModal(true);
 		this.setBounds(100, 100, 400, 500);
 		this.setLayout(new GridBagLayout());
+
 		panelMuestra = c;
+		componentes = panelMuestra.getComponents();
 		inicializaComp();
-		compruebaEntrada();
-		// inicializarListener();
+		inicializarListener();
 
 	}
 
-//	public void inicializarListener() {
-//		guardar.addActionListener(e->{
-//			if (url == url) {
-//				
-//			}
-//		});
-//	}
+	/**
+	 * Listener del boton guardar el cual detecta si es uina imagen guarda una
+	 * imagen y si es un texto guarda un texto
+	 */
+	public void inicializarListener() {
+		guardar.addActionListener(e -> {
+			if (componentes[0].toString().toLowerCase().contains("jtextarea")) {
+				File fichero = new File(url + "widgetDoc.txt");
+				String formato = "txt";
 
+			} else {
+				File fichero = new File(url + "widgetImage.jpg");
+				String formato = "jpg";
+				Graphics g = panel.getGraphics();
+
+				try {
+					ImageIO.write(img, formato, fichero);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+
+				}
+
+			}
+		});
+	}
+
+	/**
+	 * Metodo para comprobar que lo que entra al preview es un texto o imagen
+	 * 
+	 * @return devuelve true si es un texto y false si es una imagen
+	 */
 	public boolean compruebaEntrada() {
-		if (panelMuestra.toString().equalsIgnoreCase("Javax.swing.JtextArea")) {
-			textoArchivo = panelMuestra.toString();
-			return true;
-		}
+		boolean check = false;
 
-		return false;
+		for (int i = 0; i < componentes.length; i++) {
+			if (componentes[i].toString().toLowerCase().contains("jtextarea")) {
+
+				// check = true;
+			} else {
+
+				check = false;
+			}
+
+		}
+		return check;
+
 	}
 
 	public void inicializaComp() {
@@ -105,18 +151,28 @@ public class SavePreview extends JDialog {
 		if (compruebaEntrada()) {
 			previewTexto = new JTextArea();
 			previewTexto.setEditable(false);
-			previewTexto.setSize(300, 300);
+			previewTexto.setLineWrap(true);
 			previewTexto.setText(textoArchivo);
-			panel.add(previewTexto);
+			scroll = new JScrollPane(previewTexto);
+			scroll.setBounds(0, 0, 300, 300);
+			panel.add(scroll);
 		} else {
 			/**
 			 * Inicializo el Label de la imagen y lo añado al panel
 			 */
 			imagen = new JLabel();
+			img = new BufferedImage(300,300, BufferedImage.TYPE_INT_RGB);
+			ImageIcon icon = new ImageIcon(img);
+			sett = new GridBagConstraints();
+			sett.ipadx = 0;
+			sett.ipady = 0;
+			sett.fill = GridBagConstraints.BOTH;
+			this.add(panel, sett);
+			imagen.setIcon(icon);
+			
 			panel.add(imagen);
 		}
 
-		
 	}
 
 }

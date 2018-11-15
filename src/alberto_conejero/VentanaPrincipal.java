@@ -20,6 +20,7 @@ public class VentanaPrincipal {
 
 	JFrame ventana;
 	JButton muestraPanel;
+	JPanel panel;
 	Component prueba;
 	public VentanaPrincipal() {
 		ventana = new JFrame();
@@ -35,7 +36,7 @@ public class VentanaPrincipal {
 
 	public void inicializarListeners() {
 		muestraPanel.addActionListener(e -> {
-			SavePreview panel = new SavePreview(prueba);
+			SavePreview panel = new SavePreview(this.panel);
 			panel.setVisible(true);
 		});
 	}
@@ -48,12 +49,14 @@ public class VentanaPrincipal {
 		sett.gridx = 10;
 		sett.gridy = 10;
 		ventana.add(muestraPanel,sett);
+		panel = new JPanel();
 		prueba = new JTextArea(10, 10);
-		prueba.createImage(300, 300);
 		sett = new GridBagConstraints();
 		sett.gridx = 0;
 		sett.gridy = 0;
-		ventana.add(prueba,sett);
+		panel.add(prueba);
+		ventana.add(panel,sett);
+		
 	}
 
 }
