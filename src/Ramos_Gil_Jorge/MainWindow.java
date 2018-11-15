@@ -104,14 +104,24 @@ public class MainWindow {
 							String opciones[] = {"Cambiar color","Eliminar nota"};
 							int answer = JOptionPane.showOptionDialog(jframe, "¿Qué deseas hacer?", 
 														"Enhorabuena", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+							
 							if (answer == 0) {
-								Color color = JColorChooser.showDialog(null, "Elige el color de texto", null);
-								jtextarea.setForeground(color);
+								MyDialog dialog = new MyDialog(jtextarea);
+								dialog.setVisible(true);
 							} else if (answer == 1) {
 								jtextarea.setVisible(false);
 								jframe.remove(jtextarea);
 								jframe.revalidate();
 								jframe.repaint();
+								GridBagConstraints settings;
+								settings = new GridBagConstraints();
+								settings.gridx = 0;
+								settings.gridy = 0;
+								settings.ipady = 165;
+								settings.ipadx = 75;
+								settings.fill = GridBagConstraints.BOTH;
+								jbutton[0][0].setVisible(true);
+								jframe.add(jbutton[0][0], settings);
 							}
 						}
 					}
