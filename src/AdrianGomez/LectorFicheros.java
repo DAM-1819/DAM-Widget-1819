@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+
 public class LectorFicheros extends JPanel {
 	/**
 	 * 
@@ -26,26 +27,35 @@ public class LectorFicheros extends JPanel {
 	JTextField tf;
 	JTextArea ta;
 	JButton aceptar;
-
-	public LectorFicheros() {
+/**
+ * Inicializa el Lector de ficheros
+ * @param c Color de fondo del TextArea
+ * @param r ColorFondo TextField
+ */
+	public LectorFicheros(Color c,Color r) {
 		super();
+		//Crear LAyout
 		this.setLayout(new GridBagLayout());
 		this.setBounds(0, 0, 300, 250);
+		// Inicializamos elementos
 		tf = new JTextField();
 		ta = new JTextArea();
 		eti = new JLabel("Introduce la ruta del fichero a leer");
 		aceptar = new JButton("ACEPTAR");
+		// Lo hacemos visible
+		this.setVisible(true);
+		añadirComponentes(c,r);
+		ta.setBackground(c);
+		ta.setForeground(Color.BLUE);
+		tf.setBackground(r);
+		tf.setForeground(Color.RED);
 		aceptar.setBackground(Color.BLACK);
 		aceptar.setForeground(Color.WHITE);
-		this.setVisible(true);
-		añadirComponentes();
-		ta.setForeground(Color.BLUE);
-		tf.setForeground(Color.RED);
 		tf.setText(ruta);
 		inicializarListeners();
 	}
 
-	public void añadirComponentes() {
+	public void añadirComponentes(Color c,Color r) {
 		GridBagConstraints opc = new GridBagConstraints();
 		opc.gridx = 0;
 		opc.gridy = 0;
@@ -73,7 +83,15 @@ public class LectorFicheros extends JPanel {
 		opc.gridy = 3;
 		opc.fill = GridBagConstraints.BOTH;
 		this.add(aceptar, opc);
+		//Le damos formato 
+		
+		
 	}
+	/**
+	 * Metodo que intenta abrir un archivo en la ruta que recibe como parametro
+	 * @param ruta
+	 * @return
+	 */
 	public String leerFichero(String ruta) {
 		String aescribir="";
 		try {
@@ -90,7 +108,7 @@ public class LectorFicheros extends JPanel {
 				
 			}else {
 				this.tf.setForeground(Color.RED);
-				JOptionPane.showMessageDialog(this, "La ruta introducida no es a un archivo");
+				JOptionPane.showMessageDialog(this, "La ruta introducida no es a un archivo","ERROR",JOptionPane.ERROR_MESSAGE);
 			}
 		}catch (IOException e) {
 			System.out.println("ERROR DE ENTRADA SALIDA");
