@@ -33,6 +33,7 @@ public class VentanaPrincipal {
 	public void inicializarComponentes() {
 
 		ventana.setLayout(new GridLayout(1, 4));
+		ventana.setResizable(false);
 
 		// JPANEL
 		contenedor = new JPanel();
