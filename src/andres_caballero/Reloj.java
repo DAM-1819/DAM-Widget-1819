@@ -1,13 +1,15 @@
 package andres_caballero;
 
 import java.awt.Font;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.JLabel;
 
-public class Reloj extends JLabel implements Runnable {
+public class Reloj extends JLabel implements Runnable, ComponentListener {
 
 	private String hora, minutos, segundos;
 	private Calendar calendario = new GregorianCalendar();
@@ -15,7 +17,9 @@ public class Reloj extends JLabel implements Runnable {
 
 	public Reloj(int x, int y, int p, int p1) {
 		setBounds(x, y, p, p1);
-		setFont(new Font("Serif",14, 48));
+		setFont(new Font("Serif",1, 32));
+		addComponentListener(this);
+	
 		hilo = new Thread(this);
 		hilo.start();
 	}
@@ -44,5 +48,28 @@ public class Reloj extends JLabel implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class VentanaPrincipal {
 	JFrame ventana;
 	JPanel panel;
@@ -30,19 +29,20 @@ public class VentanaPrincipal {
 	}
 
 	public void inicializarComponentes() {
-		GridLayout gridLayout = new GridLayout();
+		GridLayout gridLayout = new GridLayout(1,1);
 		ventana.getContentPane().setLayout(gridLayout);
 
 		panel = new JPanel();
 		panel.setLayout(gridLayout);
-		panel.setBorder(BorderFactory.createLineBorder(Color.CYAN, 20));
-		
+		panel.setBorder(BorderFactory.createLineBorder(Color.RED, 20));
+	
 		ventana.add(panel);
+		
 		timeLabel = new Reloj(0, 0, 50, 0);
 		timeLabel.setHorizontalAlignment(JLabel.CENTER);
+		timeLabel.setForeground(Color.GRAY);
 		timeLabel.setOpaque(true);
 		panel.add(timeLabel);
 
-		
 	}
 }
