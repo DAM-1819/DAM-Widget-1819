@@ -25,12 +25,17 @@ import javax.swing.JTextField;
 public class VentanaPrincipal {
 
 	JFrame ventana;
+<<<<<<< HEAD
 	JButton guardaTexto;
 	JButton guardaImagen;
 	JPanel panel;
 	JTextArea textoPrueba;
 	BufferedImage img;
 	JLabel imagen;
+=======
+	JButton muestraPanel;
+	Component prueba;
+>>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
 	public VentanaPrincipal() {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 600, 600);
@@ -45,12 +50,17 @@ public class VentanaPrincipal {
 	}
 
 	public void inicializarListeners() {
+<<<<<<< HEAD
 		guardaTexto.addActionListener(e -> {
 			SavePreview panel = new SavePreview(textoPrueba, ".txt");
 			panel.setVisible(true);
 		});
 		guardaImagen.addActionListener(e->{
 			SavePreview panel = new SavePreview(imagen, ".jpg");
+=======
+		muestraPanel.addActionListener(e -> {
+			SavePreview panel = new SavePreview(prueba);
+>>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
 			panel.setVisible(true);
 		});
 	}
@@ -61,6 +71,7 @@ public class VentanaPrincipal {
 		guardaTexto = new JButton("Guardar texto");
 		GridBagConstraints sett;
 		sett = new GridBagConstraints();
+<<<<<<< HEAD
 		sett.gridx = 1;
 		sett.gridy = 1;
 		ventana.add(guardaTexto,sett);
@@ -92,6 +103,17 @@ public class VentanaPrincipal {
 			
 			
 		
+=======
+		sett.gridx = 10;
+		sett.gridy = 10;
+		ventana.add(muestraPanel,sett);
+		prueba = new JTextArea(10, 10);
+		prueba.createImage(300, 300);
+		sett = new GridBagConstraints();
+		sett.gridx = 0;
+		sett.gridy = 0;
+		ventana.add(prueba,sett);
+>>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
 	}
 
 }
