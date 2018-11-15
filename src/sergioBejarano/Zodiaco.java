@@ -35,7 +35,7 @@ public class Zodiaco extends JPanel{
 		setting.insets = new Insets(0, 0, 30, 0);
 		this.add(titulo,setting);
 		
-		subtitulo = new JLabel("Introduce la fecha de nacimiento: 'DD/MM/YYY'");
+		subtitulo = new JLabel("Introduce la fecha de nacimiento: 'DD/MM/YYYY'");
 		subtitulo.setFont(new Font("Lucida Bright", Font.BOLD, 12));
 		setting = new GridBagConstraints();
 		setting.gridx = 0;
