@@ -27,7 +27,7 @@ public class VentanaPrincipal {
 	JLabel[] imagenLabel;
 	static int VIDAS = 3;
 	ImageIcon corazonG = new ImageIcon(("src/RubenPrincipal/corazonG.jpg"));
-	// Vidas vidas;
+	Vidas vidas;
 
 	public VentanaPrincipal() {
 		ventana = new JFrame();
@@ -45,75 +45,22 @@ public class VentanaPrincipal {
 	}
 
 	private void inciarComponenetes() {
+		ventana.setLayout(new GridBagLayout());
 
-		ventana.setVisible(true);
-		ventana.setSize(1000, 500);
-		ventana.setResizable(true);
-		int width = 60;
-		int height = 60;
-		quitarVida = new Button("Quitar vida");
-		imagenLabel = new JLabel[3];
-		ImageIcon corazon = new ImageIcon(("src/RubenPrincipal/corazon.jpg"));
-		for (int i = 0; i < imagenLabel.length; i++) {
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.gridx = i;
-			gbc.gridy = 0;
-			gbc.weightx = 1;
-			gbc.weighty = 1;
-			imagenLabel[i] = new JLabel(corazon);
-			ventana.add(imagenLabel[i], gbc);
-
-		}
-		// para poner el boton
 		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		gbc.gridwidth = 3;
-		gbc.fill = gbc.BOTH;
-		gbc.weightx = 3;
+
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.weightx = 1;
 		gbc.weighty = 1;
-		ventana.add(quitarVida, gbc);
+
+		// for (int i = 0; i < imagenLabel.length; i++) {
+		vidas = new Vidas();
+		ventana.add(vidas,gbc);
+		// }
 
 	}
 
 	private void inicarListeners() {
-
-		quitarVida.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				restarVida(true);
-			}
-		});
-
-	}
-
-	private void restarVida(boolean restar) {
-		if (restar == true) {
-			if (VIDAS == 3) {
-				imagenLabel[0].setIcon(corazonG);
-
-				VIDAS--;
-				System.out.println(VIDAS);
-			} else {
-				if (VIDAS == 2) {
-					imagenLabel[1].setIcon(corazonG);
-					VIDAS--;
-					System.out.println(VIDAS);
-
-				} else {
-					if (VIDAS == 1) {
-						imagenLabel[2].setIcon(corazonG);
-						VIDAS--;
-						JOptionPane.showMessageDialog(null, "GAME OVER");
-						System.exit(0);
-					}
-				}
-			}
-		} else {
-			System.out.println("No restamos.");
-		}
 
 	}
 
