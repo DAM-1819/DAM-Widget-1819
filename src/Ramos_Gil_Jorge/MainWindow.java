@@ -49,13 +49,27 @@ public class MainWindow {
 	
 	public void inicializarListeners() {
 		
-		jbutton[0][0].addActionListener(new ActionListener() {
+		for (i = 0; i < jbutton.length; i++) {
+			for (j = 0; j < jbutton[i].length; j++) {
+				
+		jbutton[i][j].addActionListener(new ActionListener() {
+			private int indexx;
 			
+			{
+                this.indexx = i;
+            }
+			
+			private int indexy;
+			
+			{
+                this.indexy = j;
+            }
+		    
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				jbutton[0][0].setVisible(false);
-				jframe.remove(jbutton[0][0]);
+				jbutton[indexx][indexy].setVisible(false);
+				jframe.remove(jbutton[indexx][indexy]);
 				jframe.revalidate();
 				jframe.repaint();
 				JTextArea jtextarea = new JTextArea();
@@ -64,8 +78,8 @@ public class MainWindow {
 				jtextarea.setBackground(Color.decode("#C0FEFF"));
 				GridBagConstraints settings;
 				settings = new GridBagConstraints();
-				settings.gridx = 0;
-				settings.gridy = 0;
+				settings.gridx = indexx;
+				settings.gridy = indexy;
 				settings.fill = GridBagConstraints.BOTH;
 				jframe.add(jtextarea, settings);
 				jtextarea.addMouseListener(new MouseListener() {
@@ -112,19 +126,21 @@ public class MainWindow {
 								jframe.repaint();
 								GridBagConstraints settings;
 								settings = new GridBagConstraints();
-								settings.gridx = 0;
-								settings.gridy = 0;
+								settings.gridx = indexx;
+								settings.gridy = indexy;
 								settings.ipady = 165;
 								settings.ipadx = 75;
 								settings.fill = GridBagConstraints.BOTH;
-								jbutton[0][0].setVisible(true);
-								jframe.add(jbutton[0][0], settings);
+								jbutton[indexx][indexy].setVisible(true);
+								jframe.add(jbutton[indexx][indexy], settings);
 							}
 						}
 					}
 				});
 			}
 		});
+			}
+		}
 	}
 	
 	public void inicializar() {
