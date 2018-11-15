@@ -1,5 +1,7 @@
 package RobertoSanAndres;
 import java.awt.GridLayout;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -50,7 +52,31 @@ public class VentanaPrincipal {
 	 */
 	public void inicializarListeners(){
 	
-		
+		ventana.addComponentListener(new ComponentListener() {
+			
+			@Override
+			public void componentShown(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				CargarImagen.resizePropio();
+			}
+			
+			@Override
+			public void componentMoved(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void componentHidden(ComponentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
 
