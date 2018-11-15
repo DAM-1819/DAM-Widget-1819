@@ -42,6 +42,8 @@ public class WidgetBDO extends JDialog {
         setting.gridheight = 4;
         setting.fill = GridBagConstraints.BOTH;
         jLImage.setIcon(manager.getIconBoss());
+        jLImage.setHorizontalAlignment(SwingConstants.CENTER);
+
         jPBorder.add(jLImage,setting);
 
         setting = new GridBagConstraints();
@@ -51,6 +53,7 @@ public class WidgetBDO extends JDialog {
         setting.weightx=1;
         setting.fill = GridBagConstraints.BOTH;
         jLTitle1.setText("Boss Actual:");
+        jLTitle1.setHorizontalAlignment(SwingConstants.CENTER);
         jLTitle1.setFont(new Font(jLTitle1.getFont().getName(),Font.BOLD,14));
         jLTitle1.setBorder(new LineBorder(Color.BLACK));
         jPBorder.add(jLTitle1,setting);
@@ -62,6 +65,7 @@ public class WidgetBDO extends JDialog {
         setting.weightx=1;
         setting.fill = GridBagConstraints.BOTH;
         jLName.setText(manager.getBossNow());
+        jLName.setHorizontalAlignment(SwingConstants.CENTER);
         jLName.setBorder(new LineBorder(Color.BLACK));
         jPBorder.add(jLName, setting);
 
@@ -73,6 +77,7 @@ public class WidgetBDO extends JDialog {
         setting.fill = GridBagConstraints.BOTH;
         jLTitle2.setFont(new Font(jLTitle2.getFont().getName(),Font.BOLD,14));
         jLTitle2.setText("Siguiente Boss en:");
+        jLTitle2.setHorizontalAlignment(SwingConstants.CENTER);
         jLTitle2.setBorder(new LineBorder(Color.BLACK));
         jPBorder.add(jLTitle2,setting);
 
@@ -83,6 +88,7 @@ public class WidgetBDO extends JDialog {
         setting.weightx=1;
         setting.fill = GridBagConstraints.BOTH;
         jLTime.setBorder(new LineBorder(Color.BLACK));
+        jLTime.setHorizontalAlignment(SwingConstants.CENTER);
         jPBorder.add(jLTime,setting);
 
         this.add(jPBorder);
