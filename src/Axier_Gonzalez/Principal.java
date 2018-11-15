@@ -8,8 +8,8 @@ public class Principal {
 		EventQueue.invokeLater(new Runnable() {			
 			@Override
 			public void run() {
-				Login log = new Login();
-				log.inicializar();				
+				VentanaPrincipal principal = new VentanaPrincipal();
+				principal.inicializar();
 			}
 		});
 	}

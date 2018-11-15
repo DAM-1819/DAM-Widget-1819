@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,7 +21,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Login {
+public class Login extends JDialog implements ActionListener {
 	JFrame ventana;
 
 	JPanel panelTitulo;
@@ -42,16 +43,18 @@ public class Login {
 	String contraseñaIntroducida;
 
 	public Login() {
-		ventana = new JFrame();
-		ventana.setSize(350, 550);
-		ventana.setLocationRelativeTo(null);
-		ventana.setResizable(false);
-		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ventana.getContentPane().setBackground(new Color(28, 188, 137));
+		super();
+		setModal(true);
+		this.setSize(350, 550);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.getContentPane().setBackground(new Color(28, 188, 137));
+		añadirComponentes();
+		añadirListeners();
 	}
 
-	public void inicializarComponentes() {
-		ventana.setLayout(new GridBagLayout());
+	public void añadirComponentes() {
+		this.setLayout(new GridBagLayout());
 		panelTitulo = new JPanel();
 		titulo = new JLabel("WhatsLogin");
 		titulo.setForeground(Color.WHITE);
@@ -68,14 +71,14 @@ public class Login {
 		ajustes.weightx = 2;
 		ajustes.ipadx = 274;
 		ajustes.insets = new Insets(-502, 0, 0, 0);
-		ventana.add(panelTitulo, ajustes);
+		this.add(panelTitulo, ajustes);
 
 		nombreUsuario = new JLabel("Usuario:");
 		ajustes = new GridBagConstraints();
 		ajustes.gridx = 0;
 		ajustes.gridy = 1;
 		ajustes.insets = new Insets(-255, -282, 0, 0);
-		ventana.add(nombreUsuario, ajustes);
+		this.add(nombreUsuario, ajustes);
 
 		intrNombreUsuario = new JTextField();
 		ajustes = new GridBagConstraints();
@@ -84,14 +87,14 @@ public class Login {
 		ajustes.ipadx = 100;
 		intrNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		ajustes.insets = new Insets(-255, 0, 0, 0);
-		ventana.add(intrNombreUsuario, ajustes);
+		this.add(intrNombreUsuario, ajustes);
 
 		contraseña = new JLabel("Contraseña:");
 		ajustes = new GridBagConstraints();
 		ajustes.gridx = 0;
 		ajustes.gridy = 3;
 		ajustes.insets = new Insets(-211, -258, 0, 0);
-		ventana.add(contraseña, ajustes);
+		this.add(contraseña, ajustes);
 
 		intrContraseña = new JPasswordField();
 		ajustes = new GridBagConstraints();
@@ -100,31 +103,32 @@ public class Login {
 		ajustes.ipadx = 100;
 		intrContraseña.setHorizontalAlignment(SwingConstants.CENTER);
 		ajustes.insets = new Insets(-211, 0, 0, 0);
-		ventana.add(intrContraseña, ajustes);
+		this.add(intrContraseña, ajustes);
 
 		registrar = new JButton("Registrar");
 		ajustes = new GridBagConstraints();
 		ajustes.gridx = 0;
 		ajustes.gridy = 5;
 		ajustes.insets = new Insets(-100, 150, 0, 0);
-		ventana.add(registrar, ajustes);
+		this.add(registrar, ajustes);
 
 		aceptar = new JButton("Iniciar sesion");
 		ajustes = new GridBagConstraints();
 		ajustes.gridx = 0;
 		ajustes.gridy = 6;
 		ajustes.insets = new Insets(-100, -150, 0, 0);
-		ventana.add(aceptar, ajustes);
+		this.add(aceptar, ajustes);
 
 	}
 
-	public void inicializarListeners() {
+	public void añadirListeners() {		
 		registrar.addActionListener(e -> {
 			Registrar registrar = new Registrar();
 			registrar.setVisible(true);
 			registrar.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosed(WindowEvent arg0) {
+
 					nombre = registrar.intrUsuario.getText();
 					apellidos = registrar.intrApellidos.getText();
 					correo = registrar.intrCorreo.getText();
@@ -160,23 +164,22 @@ public class Login {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (intrNombreUsuario.getText().equalsIgnoreCase(usuarioIntroducido)
-						&& (intrContraseña.getText().equalsIgnoreCase(contraseñaIntroducida))) {					
-					JOptionPane.showMessageDialog(ventana, "Inicio de sesion correcto",
-							"Bienvenido " + nombre + " " + apellidos, JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(ventana, "Inicio de sesion incorrecto", "Mensaje",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
+				
+					if (intrNombreUsuario.getText().equalsIgnoreCase(usuarioIntroducido)
+							&& (intrContraseña.getText().equalsIgnoreCase(contraseñaIntroducida))) {
+						JOptionPane.showMessageDialog(ventana, "Inicio de sesion correcto",
+								"Bienvenido " + nombre + " " + apellidos, JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(ventana, "Inicio de sesion incorrecto", "Mensaje",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				
 			}
 		});
 	}
 
-	public void inicializar() {
-		ventana.setVisible(true);
-		inicializarComponentes();
-		inicializarListeners();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		aceptar.addActionListener(this);
 	}
-
 }
