@@ -44,7 +44,7 @@ public class LectorFicheros extends JPanel {
 		aceptar = new JButton("ACEPTAR");
 		// Lo hacemos visible
 		this.setVisible(true);
-		añadirComponentes(c,r);
+		añadirComponentes();
 		ta.setBackground(c);
 		ta.setForeground(Color.BLUE);
 		tf.setBackground(r);
@@ -55,7 +55,7 @@ public class LectorFicheros extends JPanel {
 		inicializarListeners();
 	}
 
-	public void añadirComponentes(Color c,Color r) {
+	public void añadirComponentes() {
 		GridBagConstraints opc = new GridBagConstraints();
 		opc.gridx = 0;
 		opc.gridy = 0;
