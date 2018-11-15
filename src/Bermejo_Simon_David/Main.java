@@ -1,16 +1,20 @@
 package Bermejo_Simon_David;
 
+import java.awt.*;
+
 /**
  * @author David Bermejo Simon
- * @since 1.0.0
  **/
 public class Main {
 
-    /**
-     * Hilo principal "main"
-     * @param args
-     */
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Window window = new Window();
+                window.iniciar();
+            }
+        });
     }
 }

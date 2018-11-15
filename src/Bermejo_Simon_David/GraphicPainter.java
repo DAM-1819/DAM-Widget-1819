@@ -5,6 +5,7 @@ import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * <h2>Clase Graphic Painter</h2>
@@ -36,6 +37,9 @@ public class GraphicPainter extends JDialog {
      */
     JButton saveGraph;
 
+
+    JButton selectFile;
+
     /**
      * Se pintará la gráfica en este panel
      */
@@ -59,7 +63,7 @@ public class GraphicPainter extends JDialog {
     /**
      * Etiqueta de Fichero a leer
      */
-    JLabel labelFx;
+    JLabel labelFile;
 
 
     /**
@@ -103,28 +107,30 @@ public class GraphicPainter extends JDialog {
         GridBagConstraints settings = new GridBagConstraints();
         this.getContentPane().setBackground(new Color(204, 255, 204));
 
-        //titulo del dialogo
+        //etiqueta del titulo del dialogo
         labelTitle = new JLabel("Dibuja tu gráfica");
-        Font titleFont = new FontUIResource(Font.MONOSPACED, Font.BOLD, 24);
-        labelTitle.setFont(titleFont);
+        Font labelTitleFont = new FontUIResource(Font.MONOSPACED, Font.BOLD, 24);
+        labelTitle.setFont(labelTitleFont);
         settings = new GridBagConstraints();
         settings.gridy = 0;
         settings.gridx = 1;
         settings.fill = GridBagConstraints.BOTH;
-        settings.anchor = GridBagConstraints.SOUTHEAST;
+        settings.anchor = GridBagConstraints.CENTER;
         //settings.gridwidth=2;
-        settings.insets = new Insets(20, 80, 20, 20);
+        settings.insets = new Insets(20, 40, 20, 20);
         this.add(labelTitle, settings);
 
 
         //etiqueta label path to file
-        labelFx = new JLabel("Fichero: ");
+        labelFile = new JLabel("Fichero: ");
+        Font labelFileFont = new FontUIResource(Font.MONOSPACED, Font.ITALIC, 15);
+        labelFile.setFont(labelFileFont);
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 1;
         settings.fill = GridBagConstraints.HORIZONTAL;
         settings.anchor = GridBagConstraints.EAST;
-        this.add(labelFx, settings);
+        this.add(labelFile, settings);
 
 
         //caja de introducción de texto para la ruta al fichero
@@ -132,12 +138,37 @@ public class GraphicPainter extends JDialog {
         settings = new GridBagConstraints();
         settings.gridx = 1;
         settings.gridy = 1;
-        settings.fill = GridBagConstraints.HORIZONTAL;
+        settings.ipadx = 100;
+        settings.fill = GridBagConstraints.BOTH;
         this.add(insertFile, settings);
+
+
+
+        //boton de selección de fichero.
+        selectFile = new JButton();
+        Font selectFileFont = new FontUIResource(Font.MONOSPACED, Font.ITALIC, 8);
+        ImageIcon icon = new ImageIcon(Main.class.getResource("/file-upload.png"));
+        selectFile.setIcon(icon);
+        selectFile.setFont(selectFileFont);
+        settings = new GridBagConstraints();
+        settings.gridx=2;
+        settings.gridy=1;
+        settings.fill = GridBagConstraints.HORIZONTAL;
+        this.add(selectFile,settings);
+
+
+
+
+
+
+
+
 
 
         //etiqueta label para indicar la casilla de introducción de titulo
         labelGraphicTitle = new JLabel("Titulo del gráfico: ");
+        Font graphicTitleFont = new FontUIResource(Font.MONOSPACED, Font.ITALIC, 15);
+        labelGraphicTitle.setFont(graphicTitleFont);
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 2;
@@ -145,12 +176,14 @@ public class GraphicPainter extends JDialog {
         settings.anchor = GridBagConstraints.EAST;
         this.add(labelGraphicTitle, settings);
 
+
         //caja de introducción de texto para el titulo del gráfico
         graphicTitle = new JTextField();
         settings = new GridBagConstraints();
         settings.gridx = 1;
         settings.gridy = 2;
-        settings.fill = GridBagConstraints.HORIZONTAL;
+        settings.gridwidth=2;
+        settings.fill = GridBagConstraints.BOTH;
         this.add(graphicTitle, settings);
 
 
@@ -160,7 +193,7 @@ public class GraphicPainter extends JDialog {
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 3;
-        settings.gridwidth = 2;
+        settings.gridwidth = 3;
         settings.fill = GridBagConstraints.BOTH;
         settings.ipadx = 600;
         settings.ipady = 400;
@@ -172,7 +205,7 @@ public class GraphicPainter extends JDialog {
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 4;
-        settings.gridwidth = 2;
+        settings.gridwidth = 3;
         settings.fill = GridBagConstraints.HORIZONTAL;
         this.add(paintGraphic, settings);
 
@@ -181,7 +214,7 @@ public class GraphicPainter extends JDialog {
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 5;
-        settings.gridwidth = 2;
+        settings.gridwidth = 3;
         settings.fill = GridBagConstraints.HORIZONTAL;
         this.add(saveGraph, settings);
 
@@ -190,7 +223,7 @@ public class GraphicPainter extends JDialog {
         settings = new GridBagConstraints();
         settings.gridx = 0;
         settings.gridy = 6;
-        settings.gridwidth = 2;
+        settings.gridwidth = 3;
         settings.fill = GridBagConstraints.HORIZONTAL;
         this.add(resetAll, settings);
     }
@@ -242,6 +275,19 @@ public class GraphicPainter extends JDialog {
                     gc.saveChartAsPNG();
                 } else {
                     JOptionPane.showMessageDialog(graphicContainer.getParent(), "No hay gráfica que guardar");
+                }
+            }
+        });
+
+
+        this.selectFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    insertFile.setText(selectedFile.getPath());
                 }
             }
         });

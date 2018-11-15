@@ -84,7 +84,7 @@ public class ChartManager {
         //poner el titulo al gráfico
         this.graphTitle = graphTitle;
         if (this.graphTitle.equalsIgnoreCase("")) {
-            String[] fichName = filePath.split("/");
+            String[] fichName = filePath.split("\\\\");
             this.graphTitle = fichName[fichName.length - 1];
         }
         //obtener la coleccion de datos de la instancia obtain data
