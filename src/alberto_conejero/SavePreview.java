@@ -9,7 +9,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -40,76 +42,62 @@ public class SavePreview extends JDialog {
 	JTextArea previewTexto;
 	JLabel imagen;
 	String textoArchivo;
-	JPanel panelMuestra;
+	Object muestra;
 	JScrollPane scroll;
+	String formato;
 	BufferedImage img;
-	Component[] componentes;
-
 	/**
 	 * Constructor en el que instancio los tamaños y llamo al metodo inicializar
 	 * 
-	 * @param c : el constructor recibe como parametro un panel en el cual he
-	 *          probado un texto
+	 * @param c
+	 *            : el constructor recibe como parametro un panel en el cual he
+	 *            probado un texto
+	 * @param string 
 	 */
-	public SavePreview(JPanel c) {
+	public SavePreview(Object c, String string) {
 		super();
 		this.setModal(true);
 		this.setBounds(100, 100, 400, 500);
 		this.setLayout(new GridBagLayout());
-
-		panelMuestra = c;
-		componentes = panelMuestra.getComponents();
+		String user = System.getProperty("user.name");
+		String path = "C:\\Users\\" + user + "\\Documents\\";
+		muestra = c;
+		formato = string;
 		inicializaComp();
-		inicializarListener();
+		inicializarListener(path, formato);
 
 	}
 
 	/**
 	 * Listener del boton guardar el cual detecta si es uina imagen guarda una
 	 * imagen y si es un texto guarda un texto
-	 */
-	public void inicializarListener() {
-		guardar.addActionListener(e -> {
-			if (componentes[0].toString().toLowerCase().contains("jtextarea")) {
-				File fichero = new File(url + "widgetDoc.txt");
-				String formato = "txt";
-
-			} else {
-				File fichero = new File(url + "widgetImage.jpg");
-				String formato = "jpg";
-				Graphics g = panel.getGraphics();
-
-				try {
-					ImageIO.write(img, formato, fichero);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-
-				}
-
-			}
-		});
-	}
-
-	/**
-	 * Metodo para comprobar que lo que entra al preview es un texto o imagen
 	 * 
-	 * @return devuelve true si es un texto y false si es una imagen
+	 * @param path
+	 * @param formato 
 	 */
-	public boolean compruebaEntrada() {
-		boolean check = false;
-
-		for (int i = 0; i < componentes.length; i++) {
-			if (componentes[i].toString().toLowerCase().contains("jtextarea")) {
-
-				// check = true;
-			} else {
-
-				check = false;
+	public void inicializarListener(String path, String formato) {
+		String aux = path;
+		guardar.addActionListener(e -> {
+			
+			File fichero = new File(aux + url.getText() + "_widget"+formato);
+			try {
+				PrintWriter pw = new PrintWriter(new FileWriter(fichero), true);
+				pw.print(textoArchivo);
+				pw.close();
+			} catch (IOException e1) {
+				System.out.println("Error de escritura");
 			}
 
-		}
-		return check;
+			Graphics g = panel.getGraphics();
 
+			try {
+				ImageIO.write(img, formato, fichero);
+			} catch (IOException e1) {
+				System.out.println("Error de escritura de fichero");
+			}
+			this.dispose();
+
+		});
 	}
 
 	public void inicializaComp() {
@@ -134,6 +122,7 @@ public class SavePreview extends JDialog {
 		sett.gridx = 0;
 		sett.gridy = 1;
 		sett.fill = GridBagConstraints.BOTH;
+		// url = new JC
 		this.add(url, sett);
 		/**
 		 * Inicializo el boton y lo añado la vetana
@@ -148,10 +137,11 @@ public class SavePreview extends JDialog {
 		/**
 		 * Inicializo el textArea y lo añado al panel
 		 */
-		if (compruebaEntrada()) {
+		if (muestra instanceof JTextArea) {
 			previewTexto = new JTextArea();
 			previewTexto.setEditable(false);
 			previewTexto.setLineWrap(true);
+			textoArchivo = ((JTextArea) muestra).getText();
 			previewTexto.setText(textoArchivo);
 			scroll = new JScrollPane(previewTexto);
 			scroll.setBounds(0, 0, 300, 300);
@@ -161,15 +151,12 @@ public class SavePreview extends JDialog {
 			 * Inicializo el Label de la imagen y lo añado al panel
 			 */
 			imagen = new JLabel();
-			img = new BufferedImage(300,300, BufferedImage.TYPE_INT_RGB);
-			ImageIcon icon = new ImageIcon(img);
+			
 			sett = new GridBagConstraints();
 			sett.ipadx = 0;
 			sett.ipady = 0;
 			sett.fill = GridBagConstraints.BOTH;
 			this.add(panel, sett);
-			imagen.setIcon(icon);
-			
 			panel.add(imagen);
 		}
 

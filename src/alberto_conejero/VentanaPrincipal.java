@@ -2,12 +2,18 @@ package alberto_conejero;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,15 +25,19 @@ import javax.swing.JTextField;
 public class VentanaPrincipal {
 
 	JFrame ventana;
-	JButton muestraPanel;
+	JButton guardaTexto;
+	JButton guardaImagen;
 	JPanel panel;
-	Component prueba;
+	JTextArea textoPrueba;
+	BufferedImage img;
+	JLabel imagen;
 	public VentanaPrincipal() {
 		ventana = new JFrame();
 		ventana.setBounds(100, 100, 600, 600);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	
 	public void inicializar() {
 		ventana.setVisible(true);
 		inicializarComponentes();
@@ -35,27 +45,52 @@ public class VentanaPrincipal {
 	}
 
 	public void inicializarListeners() {
-		muestraPanel.addActionListener(e -> {
-			SavePreview panel = new SavePreview(this.panel);
+		guardaTexto.addActionListener(e -> {
+			SavePreview panel = new SavePreview(textoPrueba, ".txt");
+			panel.setVisible(true);
+		});
+		guardaImagen.addActionListener(e->{
+			SavePreview panel = new SavePreview(imagen, ".jpg");
 			panel.setVisible(true);
 		});
 	}
 
 	public void inicializarComponentes() {
 		ventana.setLayout(new GridBagLayout());
-		muestraPanel = new JButton("Guardar");
+		
+		guardaTexto = new JButton("Guardar texto");
 		GridBagConstraints sett;
 		sett = new GridBagConstraints();
-		sett.gridx = 10;
-		sett.gridy = 10;
-		ventana.add(muestraPanel,sett);
+		sett.gridx = 1;
+		sett.gridy = 1;
+		ventana.add(guardaTexto,sett);
+		
+		guardaImagen = new JButton("Guardar Imagen");
+		sett = new GridBagConstraints();
+		sett.gridx = 1;
+		sett.gridy = 2;
+		ventana.add(guardaImagen,sett);
+		
 		panel = new JPanel();
-		prueba = new JTextArea(10, 10);
+		panel.setBackground(Color.white);
+		panel.setBorder(BorderFactory.createTitledBorder("Prueba"));
+		textoPrueba = new JTextArea(10, 10);
+		textoPrueba.setLineWrap(true);
 		sett = new GridBagConstraints();
 		sett.gridx = 0;
 		sett.gridy = 0;
-		panel.add(prueba);
+		sett.ipadx = 200;
+		sett.ipady= 200;
+		panel.add(textoPrueba);
 		ventana.add(panel,sett);
+		img = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+		ImageIcon icon = new ImageIcon(img);
+		imagen = new JLabel();
+		imagen.setIcon(icon);
+		panel.add(imagen, sett);
+		
+			
+			
 		
 	}
 
