@@ -35,6 +35,7 @@ public class MainWindow {
 		for (i = 0; i < 3; i++) {
 			for (j = 0; j < 3; j++) {
 				jbutton[i][j] = new JButton("Añade una nota");
+				jbutton[i][j].setBackground(Color.decode("#C0FFDE"));
 				settings = new GridBagConstraints();
 				settings.gridx = i;
 				settings.gridy = j;
@@ -60,7 +61,7 @@ public class MainWindow {
 				JTextArea jtextarea = new JTextArea();
 				jtextarea.setLineWrap(true);
 				jtextarea.setWrapStyleWord(true);
-				jtextarea.setBackground(Color.decode("#F0F8FF"));
+				jtextarea.setBackground(Color.decode("#C0FEFF"));
 				GridBagConstraints settings;
 				settings = new GridBagConstraints();
 				settings.gridx = 0;
