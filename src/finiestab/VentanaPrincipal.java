@@ -13,9 +13,11 @@ public class VentanaPrincipal {
 	
 	//La ventana principal, en este caso, guarda todos los componentes:
 	JFrame ventana;
-	DialogHighScore high;
 	JButton bDialogo;
-	
+	//Crear clase DialogHighScore,un nombre del jugador y la puntuación
+	DialogHighScore high;
+	String nombre;
+	int puntuacion=0;
 	//Constructor, marca el tamaÃ±o y el cierre del frame
 	public VentanaPrincipal() {
 		ventana = new JFrame();
@@ -43,7 +45,9 @@ public class VentanaPrincipal {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				high=new DialogHighScore();	
+				//Inicialización del DialogHighScore
+				high=new DialogHighScore(puntuacion,ventana,nombre);	
+		
 			}
 		});;
 	}
