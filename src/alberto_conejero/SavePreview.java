@@ -3,18 +3,17 @@ package alberto_conejero;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-<<<<<<< HEAD
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-=======
->>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,8 +21,10 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 
 import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 
@@ -41,37 +42,30 @@ public class SavePreview extends JDialog {
 	JTextArea previewTexto;
 	JLabel imagen;
 	String textoArchivo;
-<<<<<<< HEAD
-	Object muestra;
+	JPanel muestra;
 	JScrollPane scroll;
-	String formato;
+	Component[] componentes;
 	BufferedImage img;
+
 	/**
 	 * Constructor en el que instancio los tamaños y llamo al metodo inicializar
 	 * 
 	 * @param c
 	 *            : el constructor recibe como parametro un panel en el cual he
 	 *            probado un texto
-	 * @param string 
+	 * @param string
 	 */
-	public SavePreview(Object c, String string) {
-=======
-	Component panelMuestra;
-	ImageIcon image;
-
-	public SavePreview(Component c) {
->>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
+	public SavePreview(JPanel c) {
 		super();
 		this.setModal(true);
 		this.setBounds(100, 100, 400, 500);
 		this.setLayout(new GridBagLayout());
-<<<<<<< HEAD
 		String user = System.getProperty("user.name");
 		String path = "C:\\Users\\" + user + "\\Documents\\";
 		muestra = c;
-		formato = string;
+		componentes = muestra.getComponents();
 		inicializaComp();
-		inicializarListener(path, formato);
+		inicializarListener(path, componentes);
 
 	}
 
@@ -80,55 +74,39 @@ public class SavePreview extends JDialog {
 	 * imagen y si es un texto guarda un texto
 	 * 
 	 * @param path
-	 * @param formato 
+	 * @param componentes
+	 * @param formato
 	 */
-	public void inicializarListener(String path, String formato) {
+	public void inicializarListener(String path, Component[] componentes) {
 		String aux = path;
 		guardar.addActionListener(e -> {
-			
-			File fichero = new File(aux + url.getText() + "_widget"+formato);
-			try {
-				PrintWriter pw = new PrintWriter(new FileWriter(fichero), true);
-				pw.print(textoArchivo);
-				pw.close();
-			} catch (IOException e1) {
-				System.out.println("Error de escritura");
+			for (int j = 0; j < componentes.length; j++) {
+				if (componentes[0] instanceof JTextArea) {
+					File fichero = new File(aux + url.getText() + "_widget.txt");
+					try {
+						PrintWriter pw = new PrintWriter(new FileWriter(fichero), true);
+						pw.print(textoArchivo);
+						pw.close();
+					} catch (IOException e1) {
+						System.out.println("Error de escritura");
+					}
+				} else {
+					if (img != null) {
+						File fichero = new File(aux + url.getText() + "_widget.jpg");
+						Graphics g = panel.getGraphics();
+
+						try {
+							ImageIO.write(img, ".jpg", fichero);
+						} catch (IOException e1) {
+							System.out.println("Error de escritura de fichero");
+						}
+					}
+				}
 			}
 
-			Graphics g = panel.getGraphics();
-
-			try {
-				ImageIO.write(img, formato, fichero);
-			} catch (IOException e1) {
-				System.out.println("Error de escritura de fichero");
-			}
 			this.dispose();
 
 		});
-=======
-		panelMuestra = c;
-		inicializaComp();
-		compruebaEntrada();
-		// inicializarListener();
-
-	}
-
-//	public void inicializarListener() {
-//		guardar.addActionListener(e->{
-//			if (url == url) {
-//				
-//			}
-//		});
-//	}
-
-	public boolean compruebaEntrada() {
-		if (panelMuestra.toString().equalsIgnoreCase("Javax.swing.JtextArea")) {
-			textoArchivo = panelMuestra.toString();
-			return true;
-		}
-
-		return false;
->>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
 	}
 
 	public void inicializaComp() {
@@ -164,39 +142,35 @@ public class SavePreview extends JDialog {
 		sett.gridy = 2;
 		sett.fill = GridBagConstraints.BOTH;
 		this.add(guardar, sett);
-
 		/**
 		 * Inicializo el textArea y lo añado al panel
 		 */
-		if (muestra instanceof JTextArea) {
-			previewTexto = new JTextArea();
-			previewTexto.setEditable(false);
-<<<<<<< HEAD
-			previewTexto.setLineWrap(true);
-			textoArchivo = ((JTextArea) muestra).getText();
-=======
-			previewTexto.setSize(300, 300);
->>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
-			previewTexto.setText(textoArchivo);
-			panel.add(previewTexto);
-		} else {
-			/**
-			 * Inicializo el Label de la imagen y lo añado al panel
-			 */
-			imagen = new JLabel();
-<<<<<<< HEAD
+			if (componentes[0] instanceof JTextArea) {
+				previewTexto = new JTextArea();
+				previewTexto.setEditable(false);
+				previewTexto.setLineWrap(true);
+				textoArchivo = ((JTextArea) componentes[0]).getText();
+				previewTexto.setText(textoArchivo);
+				scroll = new JScrollPane(previewTexto);
+				scroll.setBounds(0, 0, 300, 300);
+				panel.add(scroll);
+			} else {
+				/**
+				 * Inicializo el Label de la imagen y lo añado al panel
+				 */
+				imagen = new JLabel();
+				BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+				ImageIcon icon = new ImageIcon(img);
+				imagen.setIcon(icon);
+				sett = new GridBagConstraints();
+				sett.ipadx = 0;
+				sett.ipady = 0;
+				sett.fill = GridBagConstraints.BOTH;
+				this.add(panel, sett);
+				panel.add(imagen);
 			
-			sett = new GridBagConstraints();
-			sett.ipadx = 0;
-			sett.ipady = 0;
-			sett.fill = GridBagConstraints.BOTH;
-			this.add(panel, sett);
-=======
->>>>>>> parent of 33b0d90... mostrar datos y imagenes en preview y guardado
-			panel.add(imagen);
 		}
 
-		
 	}
 
 }
