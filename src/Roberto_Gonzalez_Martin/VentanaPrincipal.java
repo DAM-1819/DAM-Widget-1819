@@ -1,22 +1,12 @@
 package Roberto_Gonzalez_Martin;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.TitledBorder;
 
 public class VentanaPrincipal {
 
@@ -34,12 +24,12 @@ public class VentanaPrincipal {
 	public void inicializarComponentes() {
 		frame.setLayout(new GridBagLayout());
 		GridBagConstraints settingsObjeto = new GridBagConstraints();
-		titulo = new JTextField("Editor de las dimensiones de ventana y el color de fondo y texto");
+		titulo = new JTextField("Editor de la resolución de la ventana y el color de fondo y texto");
 		titulo.setEditable(false);
 		settingsObjeto.gridx = 0;
 		settingsObjeto.gridy = 0;
 		frame.add(titulo,settingsObjeto);
-		texto = new JTextField("Este widget está hecho para cambiar el tamaño de la ventana y el color de la letra y el fondo a su gusto");
+		texto = new JTextField("Este widget está hecho para cambiar el tamaño de la ventana, el color de la letra y el color del fondo a tu gusto");
 		texto.setEditable(false);
 		settingsObjeto.gridx = 0;
 		settingsObjeto.gridy = 1;
