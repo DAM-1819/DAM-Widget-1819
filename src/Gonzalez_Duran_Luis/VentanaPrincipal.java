@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,62 +32,63 @@ public class VentanaPrincipal {
 		contenedor = new JPanel();
 		contenedor.setLayout(new GridLayout(1, 4));
 		contenedor.setSize(578, 115);
-		contenedor.setBackground(Color.ORANGE);
 
 		ventana.add(contenedor);
 
 		// JLABEL FACEBOOK
-		facebok = new JLabel("FACEBOOK");
+		facebok = new JLabel();
 		facebok.setLayout(new GridLayout(1, 4));
 		facebok.setBorder(new LineBorder(Color.BLACK, 2));
+
 		GridBagConstraints settings = new GridBagConstraints();
-		
 		settings.gridx = 0;
 		settings.gridy = 0;
 		settings.fill = GridBagConstraints.BOTH;
-		//facebok.setVisible(true);
+
+		Icon logoF = new ImageIcon(Principal.class.getResource("facebook.png"));
+		facebok.setIcon(logoF);
 		contenedor.add(facebok, settings);
 
 		// JLABEL TWITTER
-		twitter = new JLabel("TWITTER");
+		twitter = new JLabel();
 		twitter.setLayout(new GridLayout(1, 4));
-		
 		twitter.setBorder(new LineBorder(Color.BLACK, 2));
-		ImageIcon imagen = new ImageIcon("imagenes/Twitter.ico");
-		twitter.setIcon(imagen);
-		
-		settings = new GridBagConstraints();
 
+		settings = new GridBagConstraints();
 		settings.gridx = 0;
 		settings.gridy = 1;
 		settings.fill = GridBagConstraints.BOTH;
-		twitter.setVisible(true);
+
+		Icon logoT = new ImageIcon(Principal.class.getResource("twitter.png"));
+		twitter.setIcon(logoT);
 		contenedor.add(twitter, settings);
 
 		// JLABEL INSTAGRAM
 		instagram = new JLabel("INSTAGRAM");
 		instagram.setLayout(new GridLayout(1, 4));
 		instagram.setBorder(new LineBorder(Color.BLACK, 2));
-		instagram.setIcon(new ImageIcon("imagenes/instagramico.ico"));
-		settings = new GridBagConstraints();
 
+		settings = new GridBagConstraints();
 		settings.gridx = 0;
 		settings.gridy = 2;
 		settings.fill = GridBagConstraints.BOTH;
-		instagram.setVisible(true);
+
+		Icon logoI = new ImageIcon(Principal.class.getResource("Instagram.png"));
+		instagram.setIcon(logoI);
 		contenedor.add(instagram, settings);
 
 		// JLABEL PODEMOS
 		podemos = new JLabel("PODEMOS");
 		podemos.setLayout(new GridLayout(1, 4));
 		podemos.setBorder(new LineBorder(Color.BLACK, 2));
-		podemos.setIcon(new ImageIcon("imagenes/podemos.ico"));
-		settings = new GridBagConstraints();
 
+		settings = new GridBagConstraints();
 		settings.gridx = 0;
 		settings.gridy = 3;
 		settings.fill = GridBagConstraints.BOTH;
-		podemos.setVisible(true);
+
+		Icon logoP = new ImageIcon(Principal.class.getResource("Podemos.png"));
+		podemos.setIcon(logoP);
 		contenedor.add(podemos, settings);
 
 	}
