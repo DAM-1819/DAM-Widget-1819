@@ -32,7 +32,8 @@ public class VentanaPrincipal {
 
 		// Creamos el panel y lo añado a la ventana
 		panelFuente = new JPanel();
-		texto = new JLabel("Texto de ejemplo");
+		texto = new JLabel("Texto de ejemplo");	
+		texto.setHorizontalAlignment(JLabel.CENTER);
 		panelFuente.add(texto);
 		ventana.add(panelFuente);
 	}
@@ -49,7 +50,7 @@ public class VentanaPrincipal {
 			});
 		});
 	}
-
+	
 	public void inicializar() {
 		ventana.setVisible(true);
 		inicializarComponentes();
