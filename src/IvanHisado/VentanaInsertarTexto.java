@@ -17,16 +17,23 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.border.Border;
 
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class VentanaInsertarTexto extends JDialog implements ActionListener{
+/**
+ *
+ * @author ivan hisado
+ */
+public class VentanaInsertarTexto extends JDialog {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	// etiquetas del diallogo
 	JLabel labelTitulo, labelNombre, labelFecha;
@@ -40,8 +47,9 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 		super();
 		setModal(true); // para hacerlo modal
 		// donde empieza el Dialog y que tamanio tiene
-		setBounds((int) comp.getLocationOnScreen().getX(), (int) comp.getLocationOnScreen().getY(), 350, 250);
+		setBounds((int) comp.getLocationOnScreen().getX(), (int) comp.getLocationOnScreen().getY(), 350, 260);
 		setResizable(false);
+		this.setBackground(Color.BLACK);
 		aniadirElementos();
 		aniadirListeners();
 
@@ -82,7 +90,6 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 		GridBagConstraints gbFecha = new GridBagConstraints();
 		gbFecha.gridx = 0;
 		gbFecha.gridy = 3;
-		// gbFecha.insets = new Insets(-40,0,20,0);
 		add(labelFecha, gbFecha);
 
 		textFecha = new JTextArea();
@@ -103,11 +110,10 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 		gbBoton.gridy = 5;
 		gbBoton.insets = new Insets(10, 0, 20, 0);
 		add(botonInsertar, gbBoton);
-		
-	//	botonInsertar.addActionListener(this);
 
 	}
 
+	// metodo en el que se realiaza el listener del boton
 	public void aniadirListeners() {
 		botonInsertar.addActionListener(new ActionListener() {
 
@@ -117,6 +123,7 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 				String fechaNacimiento = textFecha.getText();
 				boolean insertar = true;
 
+				// comprueba que nos meta el nombre y que no sea mas largo de 20 caracteres
 				if (nombre.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "HAS DE INTRODUCIR UN NOMBRE.", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
@@ -127,6 +134,7 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 					insertar = false;
 
 				}
+				// compureba que la fecha este introducida en el formato requerido
 				if (fechaNacimiento.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "HAS DE INTRODUCIR UNA FECHA.", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
@@ -136,16 +144,14 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 					insertar = false;
 				}
 
+				// solo nos inserta en el fichero si los campos has sido rellenados
+				// correctamente
 				if (insertar) {
 					ArrayList<Usuario> user = new ArrayList<>();
 					user.add(new Usuario(nombre, fechaNacimiento));
 					escribirFichero(user);
-					try {
-						this.finalize();
-					} catch (Throwable e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					// hace que se cierre la ventana automaticamente
+					dispose();
 				}
 
 			}
@@ -153,6 +159,7 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 		});
 	}
 
+	// guarda en el fichero lo que haya en los textAreas
 	public void volcarListaFichero(ArrayList<Usuario> user, DataOutputStream dos) throws IOException {
 		for (int j = 0; j < user.size(); j++) {
 			dos.writeUTF(user.get(j).getNombre());
@@ -160,6 +167,7 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 		}
 	}
 
+	// crea el fichero
 	public void escribirFichero(ArrayList<Usuario> user) {
 		File fichero = new File("fechas.txt");
 		DataOutputStream dos = null;
@@ -169,6 +177,7 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 			} else {
 				dos = new DataOutputStream(new FileOutputStream(fichero));
 			}
+			//vulca los datos del arrayList en el fichero
 			volcarListaFichero(user, dos);
 			JOptionPane.showMessageDialog(null, "DATOS INTRODUCIDOS.", "FABULOSO", JOptionPane.INFORMATION_MESSAGE);
 
@@ -184,12 +193,6 @@ public class VentanaInsertarTexto extends JDialog implements ActionListener{
 			}
 		}
 
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		this.dispose();
-		
 	}
 
 }

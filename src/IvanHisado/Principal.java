@@ -2,7 +2,10 @@ package IvanHisado;
 
 import java.awt.EventQueue;
 
-
+/**
+*
+* @author ivan hisado
+*/
 public class Principal {
 
 	public static void main(String[] args) {

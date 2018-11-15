@@ -4,6 +4,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+*
+* @author ivan hisado
+*/
 public class MyObjectTunning extends DataOutputStream{
 
 	public MyObjectTunning(OutputStream out) throws IOException {
