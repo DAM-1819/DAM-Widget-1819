@@ -34,6 +34,7 @@ public class DialogHighScore extends JDialog {
 	
 	public DialogHighScore(int puntuacion, JFrame ventana, String nombre) {
 	super();
+	this.setResizable(false);
 	this.puntuacion=puntuacion;
 	this.nombre=nombre;
 	setModal(true);
