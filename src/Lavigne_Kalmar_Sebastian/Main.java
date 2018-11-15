@@ -14,6 +14,7 @@ public class Main {
 		public void run() {
 			try {
 				MainWindow mainWindow = new MainWindow();
+				mainWindow.initialize();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

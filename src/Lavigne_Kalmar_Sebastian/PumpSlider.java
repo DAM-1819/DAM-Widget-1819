@@ -45,7 +45,7 @@ public class PumpSlider extends JPanel {
 	public static final int DEFAULT_MAX_VALUE = 100;
 	public static final int DEFAULT_PUMP_FORCE = 2;
 	public static final int DEFAULT_PUMP_AMOUNT = 1;
-	public static final int INIT_VALUE = 50;
+	public static final int DEFAULT_INIT_VALUE = 0;
 	
 	private BufferedImage handle;
 	private BufferedImage body;
@@ -58,6 +58,7 @@ public class PumpSlider extends JPanel {
 	private int value;
 	/* El valor maximo que puede tener este componente */
 	private int maxValue;
+	private int initValue;
 	
 	// https://www.baeldung.com/java-observer-pattern
 	private PropertyChangeSupport support;
@@ -74,18 +75,19 @@ public class PumpSlider extends JPanel {
 	private int pumpAmount;
 
 	public PumpSlider() {
-		value = INIT_VALUE;
+		initValue = DEFAULT_INIT_VALUE;
 		maxValue = DEFAULT_MAX_VALUE;
 		leakRate = DEFAULT_LEAK_RATE;
 		leakAmount = DEFAULT_LEAK_AMOUNT;
 		pumpForce = DEFAULT_PUMP_FORCE;
 		pumpAmount = DEFAULT_PUMP_AMOUNT;
-		initPumpSlider();
+		initialize();
 		leakTimer.start();
 		
 	}
 	
-	private void initPumpSlider() {
+	public void initialize() {
+		value = initValue;
 		try {
 			handle = ImageIO.read(Main.class.getResource("pumphandle.png"));
 			body = ImageIO.read(Main.class.getResource("pumpbody.png"));
@@ -104,8 +106,7 @@ public class PumpSlider extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setValue(value - leakAmount);
-				keepValueWithinLimits();
+				keepValueWithinLimits(value - leakAmount);
 				resizeValueBar();
 				repaint();
 			}
@@ -172,20 +173,27 @@ public class PumpSlider extends JPanel {
 				);
 	}
 	
+	/**
+	 * Asigna un nuevo valor a value
+	 * Mantiene el valor entre 0 y maximo
+	 * @param newValue el nuevo valor que se quiere asignar
+	 */
+	private void keepValueWithinLimits(int newValue) {
+		newValue = (newValue < 0) ? 0 : newValue;
+		newValue = (newValue > maxValue) ? maxValue : newValue;
+		setValue(newValue);
+	}
 	
 	/**
-	 * Mantiene el valor siempre entre los valores 0 y maximo
+	 * "Infla" el valor de la bomba
 	 */
-	private void keepValueWithinLimits() {
-		setValue(value < 0 ? 0 : value);
-		setValue(value > maxValue ? maxValue : value);
-	}
-	
 	private void pumpValue() {
-		setValue(value + pumpAmount);
-		keepValueWithinLimits();
+		keepValueWithinLimits(value + pumpAmount);
 	}
 	
+	/**
+	 * Mantiene el grafico de la manija de la bomba dentro de un cuadro
+	 */
 	private void keepPumpWithinLimits() {
 		if (imgPoint.y < PUMP_TRAVEL.getMinY()) {
 			imgPoint.y = (int) PUMP_TRAVEL.getMinY();
@@ -195,6 +203,10 @@ public class PumpSlider extends JPanel {
 		}
 	}
 	
+	/**
+	 * Obtiene la posicion y las dimensiones de la imagen si existe
+	 * @return el rectangulo contenedor de la imagen
+	 */
 	protected Rectangle getImageBounds() {
 		Rectangle bounds = new Rectangle(0, 0, 0, 0);
 		if (handle != null) {
@@ -258,4 +270,89 @@ public class PumpSlider extends JPanel {
 	public int getValue() {
 		return value;
 	}
+
+	/**
+	 * @return the maxValue
+	 */
+	public int getMaxValue() {
+		return maxValue;
+	}
+
+	/**
+	 * @param maxValue the maxValue to set
+	 */
+	public void setMaxValue(int maxValue) {
+		this.maxValue = maxValue;
+	}
+
+	/**
+	 * @return the leakRate
+	 */
+	public int getLeakRate() {
+		return leakRate;
+	}
+
+	/**
+	 * @param leakRate the leakRate to set
+	 */
+	public void setLeakRate(int leakRate) {
+		this.leakRate = leakRate;
+	}
+
+	/**
+	 * @return the leakAmount
+	 */
+	public int getLeakAmount() {
+		return leakAmount;
+	}
+
+	/**
+	 * @param leakAmount the leakAmount to set
+	 */
+	public void setLeakAmount(int leakAmount) {
+		this.leakAmount = leakAmount;
+	}
+
+	/**
+	 * @return the pumpForce
+	 */
+	public int getPumpForce() {
+		return pumpForce;
+	}
+
+	/**
+	 * @param pumpForce the pumpForce to set
+	 */
+	public void setPumpForce(int pumpForce) {
+		this.pumpForce = pumpForce;
+	}
+
+	/**
+	 * @return the pumpAmount
+	 */
+	public int getPumpAmount() {
+		return pumpAmount;
+	}
+
+	/**
+	 * @param pumpAmount the pumpAmount to set
+	 */
+	public void setPumpAmount(int pumpAmount) {
+		this.pumpAmount = pumpAmount;
+	}
+
+	/**
+	 * @return the initValue
+	 */
+	public int getInitValue() {
+		return initValue;
+	}
+
+	/**
+	 * @param initValue the initValue to set
+	 */
+	public void setInitValue(int initValue) {
+		this.initValue = initValue;
+	}
+	
 }
