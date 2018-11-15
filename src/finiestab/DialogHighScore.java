@@ -30,7 +30,7 @@ public class DialogHighScore extends JDialog {
 	JPanel izq=new JPanel();
 	JPanel der=new JPanel();
 	JPanel contenido=new JPanel();
-//	ImageIcon icon;
+	ImageIcon icon;
 //	Imagen img;
 	
 	public DialogHighScore(int puntuacion, JFrame ventana, String nombre) {
@@ -65,24 +65,17 @@ public class DialogHighScore extends JDialog {
 	}
 
 	public void anadirElementos() {	
-		titulo=new JLabel("PUNTUACIONES");
-		Font fuente=new Font("Arial", 1, 20);
-		titulo.setFont(fuente);
-		titulo.setHorizontalAlignment(SwingConstants.CENTER);
-		titulo.setBackground(Color.BLACK);
-		titulo.setForeground(Color.RED);
-		titulo.setOpaque(true);
-		/*
-		icon=new ImageIcon(getClass().getResource("recursos_iniesta/titulo.PNG"));
-		img=new Imagen(icon.getImage());
-		*/
+		
+		icon=new ImageIcon(("recursos_iniesta/titulo.PNG"));
+		titulo=new JLabel(icon);
+		
 		GridBagConstraints settTitulo= new GridBagConstraints();
 		settTitulo.gridx=0;
 		settTitulo.gridy=0;
 		settTitulo.gridwidth=3;
 		settTitulo.weightx=1;
 		settTitulo.fill=GridBagConstraints.BOTH;
-		//this.getContentPane().add(img, settTitulo);
+
 		this.add(titulo,settTitulo);
 		
 		izq.setBackground(Color.BLACK);
