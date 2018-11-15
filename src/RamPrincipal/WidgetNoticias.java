@@ -215,6 +215,7 @@ public class WidgetNoticias extends JPanel implements Runnable {
 
 					String not = articulos.get(iF) + ".";
 					noticias.setText(not);
+				
 				}
 				try {
 					Thread.sleep(6000);
