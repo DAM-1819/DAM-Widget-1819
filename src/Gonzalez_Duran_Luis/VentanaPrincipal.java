@@ -1,8 +1,14 @@
 package Gonzalez_Duran_Luis;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -94,13 +100,182 @@ public class VentanaPrincipal {
 	}
 
 	public void inicializarListeners() {
+		facebok.addMouseListener(new MouseListener() {
+
+			
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					if (Desktop.isDesktopSupported()) {
+						Desktop desktop = Desktop.getDesktop();
+						if (desktop.isSupported(Desktop.Action.BROWSE)) {
+								desktop.browse(new URI("https://www.facebook.com/"));
+						}
+					}
+				}catch (IOException | URISyntaxException e1) {
+					System.out.println(e1.getMessage());
+				}
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		twitter.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					if (Desktop.isDesktopSupported()) {
+						Desktop desktop = Desktop.getDesktop();
+						if (desktop.isSupported(Desktop.Action.BROWSE)) {
+								desktop.browse(new URI("https://twitter.com/?lang=es"));
+						}
+					}
+				}catch (IOException | URISyntaxException e1) {
+					System.out.println(e1.getMessage());
+				}
+				
+			}
+		});
+		
+		instagram.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					if (Desktop.isDesktopSupported()) {
+						Desktop desktop = Desktop.getDesktop();
+						if (desktop.isSupported(Desktop.Action.BROWSE)) {
+								desktop.browse(new URI("https://www.instagram.com/?hl=es"));
+						}
+					}
+				}catch (IOException | URISyntaxException e1) {
+					System.out.println(e1.getMessage());
+				}
+				
+			}
+		});
+		
+		podemos.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					if (Desktop.isDesktopSupported()) {
+						Desktop desktop = Desktop.getDesktop();
+						if (desktop.isSupported(Desktop.Action.BROWSE)) {
+								desktop.browse(new URI("https://podemos.info/"));
+						}
+					}
+				}catch (IOException | URISyntaxException e1) {
+					System.out.println(e1.getMessage());
+				}
+				
+			}
+		});
 
 	}
 
 	public void inicializar() {
 		ventana.setVisible(true);
 		inicializarComponentes();
-		// inicializarListeners();
+		inicializarListeners();
 
 	}
 
