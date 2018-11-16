@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +18,7 @@ import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -29,6 +33,8 @@ import javax.swing.border.Border;
 import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 
 public class SavePreview extends JDialog {
+	final static String PATH = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\";
+
 	/**
 	 * Objetos necesarios para la interfaz de la ventana
 	 */
@@ -42,71 +48,63 @@ public class SavePreview extends JDialog {
 	JTextArea previewTexto;
 	JLabel imagen;
 	String textoArchivo;
-	JPanel muestra;
+	JPanel panelMuestra;
 	JScrollPane scroll;
 	Component[] componentes;
-	BufferedImage img;
-
+BufferedImage img;
 	/**
 	 * Constructor en el que instancio los tamaños y llamo al metodo inicializar
 	 * 
-	 * @param c
-	 *            : el constructor recibe como parametro un panel en el cual he
-	 *            probado un texto
-	 * @param string
+	 * @param c : el constructor recibe como parametro un panel en el cual he
+	 *          probado un texto
 	 */
 	public SavePreview(JPanel c) {
 		super();
 		this.setModal(true);
 		this.setBounds(100, 100, 400, 500);
 		this.setLayout(new GridBagLayout());
-		String user = System.getProperty("user.name");
-		String path = "C:\\Users\\" + user + "\\Documents\\";
-		muestra = c;
-		componentes = muestra.getComponents();
+
+		panelMuestra = c;
+		componentes = panelMuestra.getComponents();
 		inicializaComp();
-		inicializarListener(path, componentes);
+		inicializarListener();
 
 	}
 
 	/**
 	 * Listener del boton guardar el cual detecta si es uina imagen guarda una
 	 * imagen y si es un texto guarda un texto
-	 * 
-	 * @param path
-	 * @param componentes
-	 * @param formato
 	 */
-	public void inicializarListener(String path, Component[] componentes) {
-		String aux = path;
+	public void inicializarListener() {
 		guardar.addActionListener(e -> {
-			for (int j = 0; j < componentes.length; j++) {
-				if (componentes[0] instanceof JTextArea) {
-					File fichero = new File(aux + url.getText() + "_widget.txt");
-					try {
-						PrintWriter pw = new PrintWriter(new FileWriter(fichero), true);
-						pw.print(textoArchivo);
-						pw.close();
-					} catch (IOException e1) {
-						System.out.println("Error de escritura");
-					}
-				} else {
-					if (img != null) {
-						File fichero = new File(aux + url.getText() + "_widget.jpg");
-						Graphics g = panel.getGraphics();
-
-						try {
-							ImageIO.write(img, ".jpg", fichero);
-						} catch (IOException e1) {
-							System.out.println("Error de escritura de fichero");
-						}
-					}
+			if (componentes[0] instanceof JTextArea) {
+				File fichero = new File(PATH + url.getText() + "_widgetDoc.txt");
+				try {
+					PrintWriter pw = new PrintWriter(new FileWriter(fichero), true);
+					pw.write(textoArchivo);
+					pw.close();
+				} catch (IOException e1) {
+					System.out.println("Error de escritura");
 				}
+
+			} else {
+				File fichero = new File(PATH + url.getText() + "_widgetImage.jpg");
+				String formato = "jpg";
+				ImageIcon icon = (ImageIcon)imagen.getIcon();
+				BufferedImage img  = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+				Graphics2D g2d = img.createGraphics();
+				g2d.drawImage(icon.getImage(), 0, 0, icon.getImageObserver());
+				g2d.dispose();
+				try {
+					ImageIO.write(img, formato, fichero);
+				} catch (IOException e1) {
+					System.out.println("Error de escritura");
+
+				}
+
 			}
-
-			this.dispose();
-
 		});
+		this.dispose();
 	}
 
 	public void inicializaComp() {
@@ -131,7 +129,6 @@ public class SavePreview extends JDialog {
 		sett.gridx = 0;
 		sett.gridy = 1;
 		sett.fill = GridBagConstraints.BOTH;
-		// url = new JC
 		this.add(url, sett);
 		/**
 		 * Inicializo el boton y lo añado la vetana
@@ -142,9 +139,11 @@ public class SavePreview extends JDialog {
 		sett.gridy = 2;
 		sett.fill = GridBagConstraints.BOTH;
 		this.add(guardar, sett);
-		/**
-		 * Inicializo el textArea y lo añado al panel
-		 */
+
+		try {
+			/**
+			 * Inicializo el textArea y lo añado al panel
+			 */
 			if (componentes[0] instanceof JTextArea) {
 				previewTexto = new JTextArea();
 				previewTexto.setEditable(false);
@@ -158,17 +157,16 @@ public class SavePreview extends JDialog {
 				/**
 				 * Inicializo el Label de la imagen y lo añado al panel
 				 */
-				imagen = new JLabel();
-				BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
-				ImageIcon icon = new ImageIcon(img);
-				imagen.setIcon(icon);
+				imagen = ((JLabel) componentes[0]);
 				sett = new GridBagConstraints();
 				sett.ipadx = 0;
 				sett.ipady = 0;
 				sett.fill = GridBagConstraints.BOTH;
 				this.add(panel, sett);
 				panel.add(imagen);
-			
+			}
+		} catch (Exception e) {
+			System.out.println("No hay ningun dato para guardar");
 		}
 
 	}
