@@ -19,7 +19,8 @@ public class VentanaPrincipal {
 
 	public VentanaPrincipal() {
 		this.ventana = new JFrame("Reloj Digital");
-		ventana.setBounds(250, 150, 250, 150);
+		ventana.setBounds(450, 150, 450, 150);
+		ventana.setResizable(false);
 		ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

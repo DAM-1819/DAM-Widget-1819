@@ -1,8 +1,12 @@
 package andres_caballero;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -17,11 +21,12 @@ public class Reloj extends JLabel implements Runnable, ComponentListener {
 
 	public Reloj(int x, int y, int p, int p1) {
 		setBounds(x, y, p, p1);
-		setFont(new Font("Serif",1, 32));
+		Font font = new Font("Serif", 1, 72);
+		this.setFont(font);
 		addComponentListener(this);
-	
 		hilo = new Thread(this);
 		hilo.start();
+
 	}
 
 	public void actualiza() {
@@ -53,13 +58,13 @@ public class Reloj extends JLabel implements Runnable, ComponentListener {
 	@Override
 	public void componentHidden(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void componentMoved(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -70,6 +75,6 @@ public class Reloj extends JLabel implements Runnable, ComponentListener {
 	@Override
 	public void componentShown(ComponentEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
