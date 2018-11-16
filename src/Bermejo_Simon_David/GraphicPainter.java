@@ -147,7 +147,7 @@ public class GraphicPainter extends JDialog {
         //boton de selección de fichero.
         selectFile = new JButton();
         Font selectFileFont = new FontUIResource(Font.MONOSPACED, Font.ITALIC, 8);
-        ImageIcon icon = new ImageIcon(Main.class.getResource("/file-upload.png"));
+        ImageIcon icon = new ImageIcon("image/file-upload.png");
         selectFile.setIcon(icon);
         selectFile.setFont(selectFileFont);
         settings = new GridBagConstraints();

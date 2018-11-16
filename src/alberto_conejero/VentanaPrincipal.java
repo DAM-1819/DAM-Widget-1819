@@ -74,13 +74,13 @@ public class VentanaPrincipal {
 		ventana.add(panel, sett);
 /**
  * Archivo de texto;
- */
+// */
 //		prueba = new JTextArea(29, 38);
 //		prueba.setLineWrap(true);
 //		prueba.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-		
-		//panel.add(prueba);
+//
+//		
+//		panel.add(prueba);
 /**
  * Archivo de imagen;
  */

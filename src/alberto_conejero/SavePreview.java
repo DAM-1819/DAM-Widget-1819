@@ -33,7 +33,7 @@ import javax.swing.border.Border;
 import com.sun.xml.internal.stream.buffer.MutableXMLStreamBuffer;
 
 public class SavePreview extends JDialog {
-	final static String PATH = "C:\\Users\\" + System.getProperty("user.name") + "\\Documents\\";
+	final static String PATH = "D:\\Users\\" + System.getProperty("user.name") + "\\Documents\\";
 
 	/**
 	 * Objetos necesarios para la interfaz de la ventana
@@ -63,7 +63,6 @@ BufferedImage img;
 		this.setModal(true);
 		this.setBounds(100, 100, 400, 500);
 		this.setLayout(new GridBagLayout());
-
 		panelMuestra = c;
 		componentes = panelMuestra.getComponents();
 		inicializaComp();

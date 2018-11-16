@@ -101,8 +101,8 @@ public class Manager {
      */
     public Icon getIconBoss() {
         String name = getBossNow();
-        String path = "/" + name + ".jpg";
-        Icon icon = new ImageIcon(Main.class.getResource(path));
+        String path = "image/" + name + ".jpg";
+        Icon icon = new ImageIcon(path);
         return icon;
 
     }
