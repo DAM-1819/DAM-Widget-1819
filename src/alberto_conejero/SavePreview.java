@@ -86,7 +86,7 @@ BufferedImage img;
 				} catch (IOException e1) {
 					System.out.println("Error de escritura");
 				}
-
+				this.dispose();
 			} else {
 				File fichero = new File(PATH + url.getText() + "_widgetImage.jpg");
 				String formato = "jpg";
@@ -103,8 +103,9 @@ BufferedImage img;
 				}
 
 			}
+			this.dispose();
 		});
-		this.dispose();
+		
 	}
 
 	public void inicializaComp() {

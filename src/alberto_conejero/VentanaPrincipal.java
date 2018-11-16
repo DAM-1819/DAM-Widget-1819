@@ -75,26 +75,26 @@ public class VentanaPrincipal {
 /**
  * Archivo de texto;
  */
-		prueba = new JTextArea(29, 38);
-		prueba.setLineWrap(true);
-		prueba.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//		prueba = new JTextArea(29, 38);
+//		prueba.setLineWrap(true);
+//		prueba.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		
-		panel.add(prueba);
+		//panel.add(prueba);
 /**
  * Archivo de imagen;
  */
-//		img = new BufferedImage(350, 350, BufferedImage.TYPE_INT_RGB);
-//		ImageIcon icon = new ImageIcon(img);
-//		imagen = new JLabel();
-//		imagen.setIcon(icon);
-//		sett.gridx = 0;
-//		sett.gridy = 0;
-//		sett.ipadx = 100;
-//		sett.ipady = 100;
-//		ventana.add(panel, sett);
-//		panel.add(imagen);
-//		
+		img = new BufferedImage(350, 350, BufferedImage.TYPE_INT_RGB);
+		ImageIcon icon = new ImageIcon(img);
+		imagen = new JLabel();
+		imagen.setIcon(icon);
+		sett.gridx = 0;
+		sett.gridy = 0;
+		sett.ipadx = 100;
+		sett.ipady = 100;
+		ventana.add(panel, sett);
+		panel.add(imagen);
+		
 		
 		
 		
