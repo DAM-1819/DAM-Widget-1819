@@ -31,15 +31,7 @@ public class MiBoton extends JButton implements MouseListener, ActionListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (posit.isEditable()) {
-			
-		}
-		
 			posit.setEditable( true);
-
-		
-		
-		
 	}
 
 	@Override
